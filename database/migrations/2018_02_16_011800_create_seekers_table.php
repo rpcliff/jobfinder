@@ -14,6 +14,8 @@ class CreateSeekersTable extends Migration
     public function up()
     {
         Schema::create('seekers', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->integer('user_id')->unsigned();
             $table->string('name', 100)->default('');
             $table->string('phone', 11)->default('');

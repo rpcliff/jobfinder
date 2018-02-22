@@ -14,6 +14,8 @@ class CreateJobSkillsTable extends Migration
     public function up()
     {
         Schema::create('job_skills', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->integer('job_id')->unsigned();
             $table->integer('skill_id');
             $table->integer('rating');

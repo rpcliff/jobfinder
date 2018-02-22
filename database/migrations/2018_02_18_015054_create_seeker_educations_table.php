@@ -14,6 +14,8 @@ class CreateSeekerEducationsTable extends Migration
     public function up()
     {
         Schema::create('seeker_educations', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->increments('id');
             $table->integer('seeker_id')->unsigned();
             $table->string('university');

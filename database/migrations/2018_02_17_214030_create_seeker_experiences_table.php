@@ -14,6 +14,8 @@ class CreateSeekerExperiencesTable extends Migration
     public function up()
     {
         Schema::create('seeker_experiences', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->increments('id');
             $table->integer('seeker_id')->unsigned();
             $table->string('company');

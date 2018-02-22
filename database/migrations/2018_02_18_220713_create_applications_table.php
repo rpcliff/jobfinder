@@ -14,6 +14,8 @@ class CreateApplicationsTable extends Migration
     public function up()
     {
         Schema::create('applications', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            
             $table->increments('id');
             $table->integer('seeker_id')->unsigned();
             $table->integer('job_id')->unsigned();
