@@ -54,7 +54,7 @@
 			var selTxt = $("#skill_select option:selected").text();
 			$('.js-example-basic-single option[value='+selVal+']').remove();
 
-			$(".list_2").append("<li data-id='"+selVal+"' id='"+selVal+"'><span class='badge badge-primary'>"+selTxt+" &nbsp;<i class='js-remove fa fa-trash'></i></span></li>");
+			$(".list_2").append("<li data-id='"+selVal+"' id='"+selVal+"'><span class='badge badge-dark'>"+selTxt+" &nbsp;<i class='pull-right js-remove fa fa-trash'></i></span></li>");
 
             setHiddenInputs(editableList.toArray());
 		}

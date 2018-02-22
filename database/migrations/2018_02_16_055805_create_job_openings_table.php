@@ -15,7 +15,7 @@ class CreateJobOpeningsTable extends Migration
     {
         Schema::create('job_openings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
+            $table->integer('company_id')->unsigned();
             $table->string('title');
             $table->text('description');
             $table->integer('openings');

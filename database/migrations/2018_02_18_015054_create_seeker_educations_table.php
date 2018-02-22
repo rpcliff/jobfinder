@@ -15,7 +15,7 @@ class CreateSeekerEducationsTable extends Migration
     {
         Schema::create('seeker_educations', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('seeker_id');
+            $table->integer('seeker_id')->unsigned();
             $table->string('university');
             $table->string('type');
             $table->string('title');

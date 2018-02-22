@@ -15,7 +15,7 @@ class CreateSeekerExperiencesTable extends Migration
     {
         Schema::create('seeker_experiences', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('seeker_id');
+            $table->integer('seeker_id')->unsigned();
             $table->string('company');
             $table->string('job_title');
             $table->date('started');

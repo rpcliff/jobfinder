@@ -19,7 +19,7 @@
             
             <p style="font-size:2em;">
                 {{ $info->name }}
-                @if($info->user_id == auth()->user()->id)
+                @if(auth()->check() && $info->user_id == auth()->user()->id)
                     <a href="{{ url('/profile/'.$info->user_id.'/edit') }}" class="btn btn-sm btn-danger">Edit Profile</a>
                 @endif
                 <span class="float-right badge badge-primary" style="font-size:0.5em;">Joined: {{ $info->created_at->diffForHumans() }}</span>
@@ -60,7 +60,7 @@
         
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    @if($info->user_id == auth()->user()->id)
+                    @if(auth()->check() && $info->user_id == auth()->user()->id)
                         <a href="{{ url('/profile/'.$info->user_id.'/edit_skills') }}" class="pull-right btn btn-sm btn-danger">Edit Skills</a>
                     @endif
                     <h5><strong>Skills</strong></h5>
@@ -87,7 +87,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    @if($info->user_id == auth()->user()->id)
+                    @if(auth()->check() && $info->user_id == auth()->user()->id)
                         <a href="{{ url('/profile/'.$info->user_id.'/edit_experience') }}" class="pull-right btn btn-sm btn-danger">Edit Experience</a>
                     @endif
                     <h5><strong>Experience</strong></h5>
@@ -122,7 +122,7 @@
             <hr>
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    @if($info->user_id == auth()->user()->id)
+                    @if(auth()->check() && $info->user_id == auth()->user()->id)
                         <a href="{{ url('/profile/'.$info->user_id.'/edit_education') }}" class="pull-right btn btn-sm btn-danger">Edit Education</a>
                     @endif
                     <h5><strong>Education</strong></h5>

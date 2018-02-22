@@ -58,13 +58,15 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="typeradio">Type of Account: </label>
-                    <label class="radio-inline" style="padding-left:10px;padding-right:10px;">
-                        <input type="radio" name="type" id="seekertype" value="seeker" checked> Seeker
-                    </label>
-                    <label class="radio-inline">
-                        <input type="radio" name="type" id="companytype" value="company"> Company
-                    </label>
+                    <label for="typeradio" class="mr-5">Type of Account: </label>
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary active" style="min-width:150px;">
+                            <input type="radio" name="type" id="seekertype" value="seeker" checked> Seeker
+                        </label>
+                        <label class="btn btn-secondary" style="min-width:150px;">
+                            <input type="radio" name="type" id="companytype" value="company"> Company
+                        </label>
+                    </div>
                 </div>
 
                 <div class="form-group">

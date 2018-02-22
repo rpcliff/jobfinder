@@ -15,8 +15,8 @@ class CreateApplicationsTable extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('seeker_id');
-            $table->integer('job_id');
+            $table->integer('seeker_id')->unsigned();
+            $table->integer('job_id')->unsigned();
             $table->timestamps();
             
             $table->foreign('job_id')->references('id')->on('job_openings');

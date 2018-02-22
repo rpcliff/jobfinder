@@ -48,7 +48,7 @@
                         <ul id="list2" class="list_2">
                             @foreach($seeker_skills as $skill)
                                 
-                                <li data-id='{{ $skill->skill_id }}' id='{{ $skill->skill_id }}'><span class='badge badge-primary'>{{ $skill->skill->name }} &nbsp;<i class='js-remove fa fa-trash'></i></span></li>
+                                <li data-id='{{ $skill->skill_id }}' id='{{ $skill->skill_id }}'><span class='badge badge-dark'>{{ $skill->skill->name }} &nbsp;<i class='pull-right js-remove fa fa-trash'></i></span></li>
                                 
                             @endforeach
                             

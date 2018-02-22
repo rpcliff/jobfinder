@@ -66,6 +66,7 @@
         </div>
     </div>
     <hr>
+    <h2 class="text-center pb-2">Applications</h2>
     <div class="row">
         <div class="col-md-12">
             @foreach($applications as $application)

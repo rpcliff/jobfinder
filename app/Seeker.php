@@ -43,30 +43,4 @@ class Seeker extends Model
     {
         return \App\Application::where('job_id',$job_id)->where('seeker_id',$seeker_id)->get();
     }
-    
-    public function suggestedJobs()
-    {
-        $jobs = \App\JobOpening::all();
-        
-        $test = array();
-        /*foreach($jobs as $job)
-        {
-            $points = 0;
-            foreach($job->job_skills as $job_skill)
-            {
-                $matched_skill = false;
-                foreach(auth()->user()->type->seeker_skills as $seeker_skill)
-                {
-                    if($job_skill->skill_id == $seeker_skill->skill_id)
-                    {
-                        $matched_skill = true;
-                        $skill_diff = ($job_skill->rating)-($seeker_skill->rating);
-                    }
-                }
-            }
-            //array_push($test,$job->id);
-        }*/
-        
-        return \App\JobOpening::find($test);
-    }
 }

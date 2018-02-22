@@ -4,22 +4,32 @@ ul.list_2 {
     list-style:none;
 }
 
+il.list_2 {
+    display:inline-block;
+}
+
 h2.card-title {
     padding-top:10px;
 }
 
 .badge{
-    font-size:1em;
-    margin: 5px 0 5px 0;
+    min-width: 420px !important;
+    font-size:1.25em;
+    margin: 3px 0 3px 0;
 }
 
 .ghost {
     opacity:0.4;
 }
 
+.js-remove {
+    text-align:right !important;
+}
+
 .delete_skill {
     margin:auto;
     height:50px;
+    padding-left:20px;
     //background-color: red;
 }
 

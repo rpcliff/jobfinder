@@ -17,7 +17,7 @@
             
             <p style="font-size:2em;">
                 {{ $info->name }}
-                @if($info->user_id == auth()->user()->id)
+                @if(auth()->check() && $info->user_id == auth()->user()->id)
                     <a href="{{ url('/profile/'.$info->user_id.'/edit') }}" class="btn btn-sm btn-danger">Edit Profile</a>
                 @endif
                 <span class="float-right badge badge-primary" style="font-size:0.5em;">Joined: {{ $info->created_at->diffForHumans() }}</span>
@@ -58,7 +58,7 @@
             <div class="card">
                 
                 <div class="card-header bg-dark text-white">
-                    @if(auth()->user()->id == $info->user_id)
+                    @if(auth()->check() && auth()->user()->id == $info->user_id)
                         <a href="{{ url('/create_job') }}" class="btn btn-sm btn-danger pull-right">Create Job Opening</a>
                     @endif
                     <h3>Job Openings</h3>
@@ -82,7 +82,7 @@
                                         {{ $job->description }}
                                     </div>
                                     <div class="col-md-2">
-                                        @if($info->user_id == auth()->user()->id)
+                                        @if(auth()->check() && $info->user_id == auth()->user()->id)
                                             <a href="{{ url('/job/'.$job->id.'/manage') }}" class="btn btn-sm btn-warning btn-block">Manage</a>
                                         @endif
                                     </div>
