@@ -18,7 +18,7 @@ class JobOpeningSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         
-        $job_openings = 10;
+        $job_openings = 25;
         
         $skills = Skill::all()->pluck('id')->toArray();
         $job_titles = array('Application Developer','Application Support Analyst','Applications Engineer','Associate Developer','Chief Information Officer (CIO)',

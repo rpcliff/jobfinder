@@ -21,7 +21,7 @@ class SeekerSeeder extends Seeder
         
         $startDate = '2015-01-01 00:00:00';
         
-        $num_seekers = 10;
+        $num_seekers = 40;
         
         for($i = 0; $i < $num_seekers; $i++)
         {
