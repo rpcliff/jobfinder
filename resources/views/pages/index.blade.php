@@ -32,7 +32,29 @@
             </div>
         </div>
         <div class="col-md-6">
-        
+            <div class="card">
+                <div class="card-header">
+                    <h4>Newest Job Openings</h4>
+                </div>
+                <div class="card-body">
+                    
+                    @foreach($new_jobs as $job)
+                        <div class="card mb-2">
+                            <div class="card-header bg-dark text-white">
+                                <strong>{{ $job->title }}</strong> at {{ $job->company->name }}
+                                <span class="badge badge-light badge-pill pull-right">{{ $job->created_at->diffForHumans() }}</span>
+                            </div>
+                            <div class="card-body">
+                                <p>
+                                    <strong>Description: </strong> {{ $job->description }}
+                                </p>
+                                <span class="badge badge-secondary">Openings: {{ $job->openings }}</span>
+                                <a href="{{ url('/job/'.$job->id) }}" class="btn btn-sm btn-primary pull-right">View Job</a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
         </div>
     </div>
 @endsection

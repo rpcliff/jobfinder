@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class DatabaseSeeder extends Seeder
+class TestSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,10 +11,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
         $this->call([
-            SkillsTableSeeder::class,
-            AdminSeeder::class
+            CompanySeeder::class,
+            SeekerSeeder::class,
+            JobOpeningSeeder::class,
+            ApplicationsSeeder::class
         ]);
     }
 }

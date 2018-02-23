@@ -19,11 +19,11 @@
 
             <div class="col-sm-6">
 
-                <?php $img_src = '/storage/company_images/company'.Auth::user()->id.'.jpg'; ?>
+                <?php $img_src = '/storage/company_images/company'.Auth::user()->id.'.png'; ?>
                 @if(file_exists(public_path($img_src)))
                     <img style="width:250px;height:250px;" id='img-upload' src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
                 @else
-                    <img style='width:250px;height:250px;' id='img-upload' src='/storage/company_images/noimage.jpg'>
+                    <img style='width:250px;height:250px;' id='img-upload' src='/storage/company_images/noimage.png'>
                 @endif
 
                 <hr>

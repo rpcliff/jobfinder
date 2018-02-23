@@ -79,3 +79,11 @@ Route::post('/login', 'AuthController@login')->name('login');
 Route::post('/register', 'AuthController@register');
 
 Route::get('/logout', 'AuthController@logout');
+
+
+/*
+ *      ADMIN ROUTES
+ */
+Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::get('/admin/skills', 'AdminController@skills');

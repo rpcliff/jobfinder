@@ -14,11 +14,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-2">
-                                <?php $img_src = '/storage/company_images/company'.$job->company_id.'.jpg'; ?>
+                                <?php $img_src = '/storage/company_images/company'.$job->company_id.'.png'; ?>
                                 @if(file_exists(public_path($img_src)))
                                     <img style="width:150px;height:150px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
                                 @else
-                                    <img style='width:150px;height:150px;' src='/storage/company_images/noimage.jpg'>
+                                    <img style='width:150px;height:150px;' src='/storage/company_images/noimage.png'>
                                 @endif
                                 <h4 class="text-center pt-2"><strong>{{ $job->company->name }}</strong></h4>
                             </div>

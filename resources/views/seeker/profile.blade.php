@@ -6,11 +6,11 @@
         
         <div class="col-md-3">
 
-            <?php $img_src = '/storage/seeker_images/seeker'.$info->user_id.'.jpg'; ?>
+            <?php $img_src = '/storage/seeker_images/seeker'.$info->user_id.'.png'; ?>
             @if(file_exists(public_path($img_src)))
                 <img style="width:250px;height:250px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
             @else
-                <img style="width:250px;height:250px;" src='/storage/seeker_images/noimage.jpg'>
+                <img style="width:250px;height:250px;" src='/storage/seeker_images/noimage.png'>
             @endif
 
         
