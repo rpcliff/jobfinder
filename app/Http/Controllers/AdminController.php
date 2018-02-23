@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Skill;
+use App\User;
 
 class AdminController extends Controller
 {
@@ -42,5 +43,15 @@ class AdminController extends Controller
             ->orderByRaw('average_rating DESC')->get();
 
         return view('admin.skills', compact('skills', 'seeker_skills', 'job_skills'));
+    }
+    
+    public function all_users()
+    {
+        if(auth()->user()->user_type != 3)
+            return back();
+        
+        $users = User::all();
+        
+        return view('admin.all_users', compact('users'));
     }
 }

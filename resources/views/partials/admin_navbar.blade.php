@@ -10,8 +10,8 @@
                 <li class="nav-item {{ (Request::is('admin') ? 'active' : '') }}">
                     <a class="nav-link" href="{{ url('/admin') }}">Admin Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item {{ (Request::is('job_openings') ? 'active' : '') }}">
-                    <a class="nav-link" href="">All Users</a>
+                <li class="nav-item {{ (Request::is('admin/all_users') ? 'active' : '') }}">
+                    <a class="nav-link" href="{{ url('/admin/all_users') }}">All Users</a>
                 </li>
                 <li class="nav-item {{ (Request::is('companies') ? 'active' : '') }}">
                     <a class="nav-link" href="">Companies</a>
