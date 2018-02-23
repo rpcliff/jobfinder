@@ -5,6 +5,7 @@ use App\Company;
 use App\JobOpening;
 use App\Skill;
 use App\JobSkill;
+use Carbon\Carbon;
 
 class JobOpeningSeeder extends Seeder
 {
@@ -35,7 +36,12 @@ class JobOpeningSeeder extends Seeder
         
         for($i = 0; $i < $job_openings; $i++)
         {
+            $startDate = Carbon::create(2018,1,1,0,0,0); //Oldest Job Opening (2018-01-01 00:00:00.0 UTC (+00:00))
+            
             $randomCompany = Company::inRandomOrder()->first();
+            
+            if($randomCompany->created_at->gt($startDate)) //If company created after startDate, use company created_at
+                $startDate = $randomCompany->created_at;
 
             $ranSalary = $faker->numberBetween(0,120);
             $ranSalary = $ranSalary * 1000;
@@ -50,8 +56,8 @@ class JobOpeningSeeder extends Seeder
                 'type' => $faker->randomElement($job_types),
                 'education' => $faker->randomElement($education),
                 'experience' => $faker->randomElement($experience),
-                'created_at' => $faker->dateTimeBetween($randomCompany->created_at,'now'),
-                'updated_at' => $faker->dateTimeBetween($randomCompany->created_at,'now')
+                'created_at' => $faker->dateTimeBetween($startDate,'now'),
+                'updated_at' => $faker->dateTimeBetween($startDate,'now')
             ]);
             
             $skills_ids = $faker->shuffle($skills); //Shuffle skill IDs

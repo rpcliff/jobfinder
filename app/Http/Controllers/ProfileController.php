@@ -123,6 +123,21 @@ class ProfileController extends Controller
         }
         else if(auth()->user()->user_type == 2)
         {
+            //VALIDATE
+            $request->validate([
+                'name' => 'required|min:1|max:100',
+                'industry' => 'required|min:1|max:100',
+                'description' => 'required|min:1|max:1000',
+                'phone' => 'required',
+                'contact_email' => 'nullable|email',
+                'founded' => 'required|digits:4',
+                'company_size' => 'required|numeric|min:1',
+                'city' => 'required|min:1|max:100',
+                'state' => 'required|min:1|max:100',
+                'zip' => 'required|min:5|max:15',
+                'website' => 'nullable|max:100'
+            ]);
+            
             //STORE IMAGE
             if($request->hasFile('image_file'))
             {
@@ -132,11 +147,16 @@ class ProfileController extends Controller
             
             $company = Company::find($user_id);
             $company->name = $request->name;
+            if(isset($request->industry)) $company->industry = $request->industry;
             if(isset($request->description)) $company->description = $request->description;
             if(isset($request->phone)) $company->phone = $request->phone;
+            if(isset($request->contact_email)) $company->contact_email = $request->contact_email;
+            $company->founded = $request->founded;
+            $company->size = $request->company_size;
             if(isset($request->city)) $company->city = $request->city;
             if(isset($request->state)) $company->state = $request->state;
-            if(isset($request->zip)) $company->zipcode = $request->zip;
+            if(isset($request->zipcode)) $company->zipcode = $request->zip;
+            if(isset($request->website)) $company->website = $request->website;
             $company->save();
         }
         

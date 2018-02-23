@@ -17,11 +17,11 @@
 
         <div class="col-md-3">
         
-            <?php $img_src = '/storage/company_images/company'.$job->company_id.'.jpg'; ?>
+            <?php $img_src = '/storage/company_images/company'.$job->company_id.'.png'; ?>
             @if(file_exists(public_path($img_src)))
                 <img style="width:250px;height:250px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
             @else
-                <img style='width:250px;height:250px;' src='/storage/company_images/noimage.jpg'>
+                <img style='width:250px;height:250px;' src='/storage/company_images/noimage.png'>
             @endif
             
             <a href="{{ url('/profile/'.$job->company_id) }}" class="btn btn-primary btn-block" style="margin-top:10px;">View Company</a>
@@ -48,7 +48,7 @@
                 @if(empty($job->salary) || $job->salary == 0)
                     N/A
                 @else
-                    {{ $job->salary }}
+                    {{ '$'.number_format($job->salary,0) }}
                 @endif
             </p>
             <p>
@@ -63,8 +63,12 @@
                 @endif
             </p>
             <p>
-                <strong>Email: </strong> 
-                {{ $job->company->user->email }}
+                <strong>Contact Email: </strong> 
+                @if(empty($job->company->contact_email))
+                    {{ $job->company->user->email }}
+                @else
+                    {{ $job->company->contact_email }}
+                @endif
             </p>
             <p>
                 <strong>Phone: </strong> 

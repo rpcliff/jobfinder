@@ -37,7 +37,6 @@
                         </span>
                         <input type="text" class="form-control" readonly>
                     </div>
-                    <!--<img id='img-upload'/>-->
                 </div>
 
             </div>
@@ -51,16 +50,45 @@
                 </div>
                 
                 <div class="form-group row">
+                    <label for="industry" class="col-sm-3 col-form-label">Industry: </label>
+                    <div class="col-sm-9">
+                        <select class="form-control" id="industry" name="industry">
+                            <option {{ (auth()->user()->type->industry=="Basic Industries")?'selected':'' }}>Basic Industries</option>
+                            <option {{ (auth()->user()->type->industry=="Capital Goods")?'selected':'' }}>Capital Goods</option>
+                            <option {{ (auth()->user()->type->industry=="Consumer Durables")?'selected':'' }}>Consumer Durables</option>
+                            <option {{ (auth()->user()->type->industry=="Consumer Non-Durables")?'selected':'' }}>Consumer Non-Durables</option>
+                            <option {{ (auth()->user()->type->industry=="Consumer Services")?'selected':'' }}>Consumer Services</option>
+                            <option {{ (auth()->user()->type->industry=="Energy")?'selected':'' }}>Energy</option>
+                            <option {{ (auth()->user()->type->industry=="Finance")?'selected':'' }}>Finance</option>
+                            <option {{ (auth()->user()->type->industry=="Healthcare")?'selected':'' }}>Healthcare</option>
+                            <option {{ (auth()->user()->type->industry=="Miscellaneous")?'selected':'' }}>Miscellaneous</option>
+                            <option {{ (auth()->user()->type->industry=="Public Utilities")?'selected':'' }}>Public Utilities</option>
+                            <option {{ (auth()->user()->type->industry=="Technology")?'selected':'' }}>Technology</option>
+                            <option {{ (auth()->user()->type->industry=="Transportation")?'selected':'' }}>Transportation</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
                     <label for="description" class="col-sm-3 col-form-label">Description: </label>
                     <div class="col-sm-9">
-                        <textarea class="form-control" name="description" id="description" rows="3"></textarea>
+                        <textarea class="form-control" name="description" id="description" rows="5">{{ auth()->user()->type->description }}
+                        </textarea>
                     </div>
                 </div>
                 
                 <div class="form-group row">
                     <label for="phone" class="col-sm-3 col-form-label">Phone: </label>
                     <div class="col-sm-9">
-                        <input type="text" class="form-control" name="phone" id="phone" value='{{ Auth::user()->type->phone }}' required>
+                        <input type="text" class="form-control" name="phone" id="phone" value='{{ Auth::user()->type->phone }}' placeholder="e.g. 555-555-5555" required>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="contact_email" class="col-sm-3 col-form-label">Contact Email: </label>
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" name="contact_email" id="contact_email" value='{{ Auth::user()->type->contact_email }}'>
+                        <small id="emailHelp" class="form-text text-muted">Email used for contact only. If left blank, login email will be used.</small>
                     </div>
                 </div>
 
@@ -85,6 +113,27 @@
                     </div>
                 </div>
                 
+                <div class="form-group row">
+                    <label for="founded" class="col-sm-3 col-form-label">Year Founded: </label>
+                    <div class="col-sm-9">
+                        <input type="number" min="1500" max="2018" class="form-control" name="founded" id="founded" value='{{ Auth::user()->type->founded }}' placeholder="e.g. 2001" required>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="company_size" class="col-sm-3 col-form-label">Company Size: </label>
+                    <div class="col-sm-9">
+                        <input type="number" min="1" class="form-control" name="company_size" id="company_size" value='{{ Auth::user()->type->size }}' placeholder="e.g. 5" required>
+                        <small id="sizeHelp" class="form-text text-muted">Number of employees.</small>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="website" class="col-sm-3 col-form-label">Website: </label>
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" name="website" id="website" value='{{ Auth::user()->type->website }}' placeholder="e.g. http://www.website.com">
+                    </div>
+                </div>
             </div>
 
         </div>

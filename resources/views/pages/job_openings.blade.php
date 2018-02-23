@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-header bg-dark text-white">
                         <h3><span class="badge badge-light pull-right">{{ $job->created_at->diffForHumans() }}</span>
-                        <strong>{{ $job->title }}</strong></h3>
+                        <strong>{{ $job->title }}</strong> at {{ $job->company->name }}</h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -20,16 +20,29 @@
                                 @else
                                     <img style='width:150px;height:150px;' src='/storage/company_images/noimage.png'>
                                 @endif
-                                <h4 class="text-center pt-2"><strong>{{ $job->company->name }}</strong></h4>
                             </div>
                             <div class="col-md-10">
                                 <p><strong>Job Description: </strong>{{ $job->description }}</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Job Type: </strong>{{ $job->type }}</p>
+                                        <p><strong>Education: </strong>{{ $job->education }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        @if(empty($job->salary))
+                                            <p><strong>Salary: </strong>N/A</p>
+                                        @else
+                                            <p><strong>Salary: </strong>${{ number_format($job->salary,0) }}</p>
+                                        @endif
+                                        <p><strong>Experience: </strong>{{ $job->experience }}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ url('/job/'.$job->id) }}" class="btn btn-md btn-primary pull-right">View Job</a>
-                        <strong>Openings: </strong>{{ $job->openings }}
+                        <a href="{{ url('/job/'.$job->id) }}" class="btn btn-sm btn-primary pull-right">View Job</a>
+                        <h5><span class="badge badge-secondary"><strong>Openings: </strong>{{ $job->openings }}</span></h5>
                     </div>
                 </div>
                 <br>

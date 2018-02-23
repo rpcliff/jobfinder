@@ -18,23 +18,26 @@ class CompanySeeder extends Seeder
         $faker = Faker\Factory::create();
 
         $companies = array(
-            array('Apple','',''),
-            array('Amazon','',''),
-            array('Dell', '', ''),
-            array('Digital Ocean', '', ''),
-            array('Discord', '', ''),
-            array('Ebay', '', ''),
-            array('Facebook', '', ''),
-            array('Google', '', ''),
-            array('Instagram', '', ''),
-            array('Microsoft', '', ''),
-            array('Nvidia', '', ''),
-            array('Paypal', '', ''),
-            array('Samsung', '', ''),
+            //Format(NAME,EMAIL,DESCRIPTION,)
+            array('Apple','','',''),
+            array('Amazon','','',''),
+            array('Dell', '', '',''),
+            array('Digital Ocean', '', '',''),
+            array('Discord', '', '',''),
+            array('Ebay', '', '',''),
+            array('Facebook', '', '',''),
+            array('Google', '', '',''),
+            array('Instagram', '', '',''),
+            array('Microsoft', '', '',''),
+            array('Nvidia', '', '',''),
+            array('Paypal', '', '',''),
+            array('Samsung', '', '',''),
             array('Skype', '', ''),
-            array('SoundCloud', '', ''),
-            array('Twitter', '', '')
+            array('SoundCloud', '', '',''),
+            array('Twitter', '', '','')
         );
+        
+        $industries = array('Basic Industries','Capital Goods','Consumer Durables','Consumer Non-Durables','Consumer Services','Energy','Finance','Healthcare','Miscellaneous','Public Utilities','Technology','Transportation');
         
         $startDate = '2015-01-01 00:00:00';
         
@@ -62,11 +65,15 @@ class CompanySeeder extends Seeder
             $company = Company::create([
                 'user_id' => $user->id,
                 'name' => $companies[$i][0],
+                'industry' => $faker->randomElement($industries),
                 'description' => $description,
-                'phone' => $faker->numerify('##########'),
+                'phone' => $faker->numerify('###-###-####'),
+                'founded' => $faker->year('now'),
+                'size' => $faker->numberBetween(1,10000),
                 'city' => $faker->city,
                 'state' => $faker->state,
                 'zipcode' => $faker->numerify('#####'),
+                'website' => 'http://'.$faker->domainName,
                 'created_at' => $user->created_at,
                 'updated_at' => $user->updated_at
             ]);

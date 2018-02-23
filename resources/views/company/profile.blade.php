@@ -39,13 +39,33 @@
                 @endif
             </p>
             <p>
-                <strong>Email: </strong> 
-                {{ $info->user->email }}
+                <strong>Contact Email: </strong> 
+                @if($info->contact_email=='')
+                    {{ $info->user->email }}
+                @else
+                    {{ $info->contact_email }}
+                @endif
             </p>
             <p>
                 <strong>Phone: </strong> 
                 @if(!empty($info->phone))
                     {{ $info->phone }}
+                @else
+                    N/A
+                @endif
+            </p>
+            <p>
+                <strong>Founded: </strong> 
+                {{ $info->founded }}
+            </p>
+            <p>
+                <strong>Company Size: </strong> 
+                {{ $info->size }} Employees
+            </p>
+            <p>
+                <strong>Website: </strong> 
+                @if(isset($info->website) && !empty($info->website))
+                    <a href="{{ $info->website }}" target="_blank">{{ $info->website }}</a>
                 @else
                     N/A
                 @endif
@@ -61,7 +81,7 @@
                     @if(auth()->check() && auth()->user()->id == $info->user_id)
                         <a href="{{ url('/create_job') }}" class="btn btn-sm btn-danger pull-right">Create Job Opening</a>
                     @endif
-                    <h3>Job Openings</h3>
+                    <h3>Job Openings <span class="badge badge-light badge-pill">{{ count($jobs) }}</span></h3>
                 </div>
                 
                 <div class="card-body">
@@ -95,6 +115,16 @@
                 
             </div>
         </div>
+    </div>
+    <hr>
+    <div class="row">
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <a href="{{ URL::previous() }}" class="btn btn-danger btn-block">Back</a>
+            </div>
+        </div>
+
     </div>
 
 @endsection

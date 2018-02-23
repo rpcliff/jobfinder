@@ -8,7 +8,8 @@
         
                 <div class="card">
                     <div class="card-header bg-dark text-white">
-                        <h3><span class="badge badge-light pull-right">{{ $company->created_at->diffForHumans() }}</span>
+                        <!--<h3><span class="badge badge-light pull-right">{{ $company->created_at->diffForHumans() }}</span>-->
+                        <h3><span class="badge badge-light pull-right">{{ $company->city }}, {{ $company->state }}</span>
                         <strong>{{ $company->name }}</strong></h3>
                     </div>
                     <div class="card-body">
@@ -28,7 +29,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ url('/profile/'.$company->user_id) }}" class="btn btn-md btn-primary pull-right">View Company</a>
+                        <a href="{{ url('/profile/'.$company->user_id) }}" class="btn btn-sm btn-primary pull-right">View Company</a>
                         <strong>Job Openings: </strong>{{ count($company->job_openings) }}
                     </div>
                 </div>

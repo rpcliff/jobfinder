@@ -24,14 +24,30 @@
                     @if(Auth::check())
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown07" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             
-                            <img src="/storage/seeker_images/noimage.png" class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;">
+                            @if(auth()->user()->user_type == 1)
+                                <?php $img_src = '/storage/seeker_images/seeker'.auth()->user()->id.'.png'; ?>
+                                @if(file_exists(public_path($img_src)))
+                                    <img class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
+                                @else
+                                    <img class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;" src='/storage/seeker_images/noimage.png'>
+                                @endif
+                            @elseif(auth()->user()->user_type == 2)
+                                <?php $img_src = '/storage/company_images/company'.auth()->user()->id.'.png'; ?>
+                                @if(file_exists(public_path($img_src)))
+                                    <img class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
+                                @else
+                                    <img class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;" src='/storage/company_images/noimage.png'>
+                                @endif
+                            @endif
+                            
+                            <!--<img src="/storage/seeker_images/noimage.png" class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;">-->
                             &nbsp;{{ Auth::user()->type->name }}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
                             <a class="dropdown-item" href="{{ url('/dashboard') }}">Dashboard</a>
                             @if(auth()->user()->user_type==1)
                                 <a class="dropdown-item" href="{{ url('/applications') }}">Your Applications</a>
                             @elseif(auth()->user()->user_type==2)
-                                <a class="dropdown-item" href="{{ url('/applications') }}">Your Job Openings</a>
+                                <a class="dropdown-item" href="{{ url('/company_jobs') }}">Your Job Openings</a>
                             @endif
                             <a class="dropdown-item" href="{{ url('/profile/'.Auth::user()->id) }}">Profile</a>
                             <a class="dropdown-item" href="#">Account</a>

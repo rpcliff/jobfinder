@@ -42,7 +42,7 @@ class SeekerSeeder extends Seeder
             $seeker = Seeker::create([
                 'user_id' => $user->id,
                 'name' => $first_name.' '.$last_name,
-                'phone' => $faker->numerify('##########'),
+                'phone' => $faker->numerify('###-###-####'),
                 'city' => $faker->city,
                 'state' => $faker->state,
                 'zipcode' => $faker->numerify('#####')

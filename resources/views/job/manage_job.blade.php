@@ -6,11 +6,11 @@
 
         <div class="col-md-3">
         
-            <?php $img_src = '/storage/company_images/company'.$job->company_id.'.jpg'; ?>
+            <?php $img_src = '/storage/company_images/company'.$job->company_id.'.png'; ?>
             @if(file_exists(public_path($img_src)))
                 <img style="width:250px;height:250px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
             @else
-                <img style='width:250px;height:250px;' src='/storage/company_images/noimage.jpg'>
+                <img style='width:250px;height:250px;' src='/storage/company_images/noimage.png'>
             @endif
             
             <a href="{{ url('/profile/'.$job->company_id) }}" class="btn btn-primary btn-block" style="margin-top:10px;">View Company</a>
@@ -70,7 +70,7 @@
     <div class="row">
         <div class="col-md-12">
             @foreach($applications as $application)
-                <div class="card">
+                <div class="card mb-2">
                     <div class="card-header bg-dark text-white">
                         <h3><span class="badge badge-light pull-right">Submitted: {{ $application->created_at->diffForHumans() }}</span>
                         <strong>{{ $application->seeker->name }}</strong></h3>
@@ -78,11 +78,11 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-2">
-                                <?php $img_src = '/storage/seeker_images/seeker'.$application->seeker_id.'.jpg'; ?>
+                                <?php $img_src = '/storage/seeker_images/seeker'.$application->seeker_id.'.png'; ?>
                                 @if(file_exists(public_path($img_src)))
                                     <img style="width:150px;height:150px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
                                 @else
-                                    <img style='width:150px;height:150px;' src='/storage/seeker_images/noimage.jpg'>
+                                    <img style='width:150px;height:150px;' src='/storage/seeker_images/noimage.png'>
                                 @endif
                             </div>
                             <div class="col-md-10">
@@ -91,14 +91,14 @@
                                 <p><strong>Age: </strong>{{ $application->seeker->age }}</p>
                                 
                                 @foreach($application->seeker->seeker_skills as $skill)
-                                    <span class="badge badge-pill badge-primary">{{ $skill->rating }} - {{ $skill->skill->name }}</span>
+                                    <span class="badge badge-pill badge-secondary">{{ $skill->rating }} - {{ $skill->skill->name }}</span>
                                 @endforeach
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <a href="" class="btn btn-md btn-danger pull-right ml-1">Remove Application</a>
-                        <a href="{{ url('/job/'.$application->job->id) }}" class="btn btn-md btn-primary pull-right">View Profile</a>
+                        <a href="" class="btn btn-sm btn-danger pull-right ml-1">Remove Application</a>
+                        <a href="{{ url('/profile/'.$application->seeker->user_id) }}" class="btn btn-sm btn-primary pull-right">View Profile</a>
                     </div>
                 </div>
             @endforeach

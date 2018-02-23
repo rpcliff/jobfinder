@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Application;
+use App\JobOpening;
 
 class DashboardController extends Controller
 {
@@ -35,5 +36,15 @@ class DashboardController extends Controller
         
         $applications = Application::where('seeker_id',auth()->user()->id)->get();
         return view('seeker.applications', compact('applications'));
+    }
+    
+    public function company_jobs()
+    {
+        //Is a company
+        if(auth()->user()->user_type != 2)
+            return back();
+        
+        $jobs = JobOpening::where('company_id',auth()->user()->id)->orderBy('created_at','desc')->get();
+        return view('company.company_jobs', compact('jobs'));
     }
 }

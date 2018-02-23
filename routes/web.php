@@ -54,6 +54,8 @@ Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
 Route::get('/applications', 'DashboardController@applications');
 
+Route::get('/company_jobs', 'DashboardController@company_jobs');
+
 
 /*
  *      JOB ROUTES

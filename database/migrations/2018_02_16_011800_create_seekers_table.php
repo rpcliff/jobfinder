@@ -18,7 +18,7 @@ class CreateSeekersTable extends Migration
             
             $table->integer('user_id')->unsigned();
             $table->string('name', 100)->default('');
-            $table->string('phone', 11)->default('');
+            $table->string('phone', 15)->default('');
             $table->string('city')->default('');
             $table->string('state')->default('');
             $table->string('zipcode')->default('');
