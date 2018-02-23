@@ -29,7 +29,7 @@ class SeekerSeeder extends Seeder
             $last_name = $faker->lastName;
             
             //Email format: firstname.lastname@domain.com
-            $email = strtolower($first_name).'.'.strtolower($last_name).$faker->freeEmailDomain;
+            $email = strtolower($first_name).'.'.strtolower($last_name).'@'.$faker->freeEmailDomain;
 
             $user = User::create([
                'email' => $email,
