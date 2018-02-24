@@ -18,7 +18,7 @@ class DashboardController extends Controller
         if(auth()->user()->user_type == 1)
         {
             $suggestedJobs = getSuggestedJobs(auth()->user()->id);
-            
+
             return view('seeker.dashboard', compact('suggestedJobs'));
         }
         else if(auth()->user()->user_type == 2)

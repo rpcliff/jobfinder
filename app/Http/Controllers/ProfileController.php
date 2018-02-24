@@ -104,6 +104,13 @@ class ProfileController extends Controller
         if(auth()->user()->user_type == 1)
         {
             //VALIDATE
+            $request->validate([
+                'name' => 'required|min:1|max:100',
+                'age' => 'required|numeric|min:10|max:100',
+                'city' => 'required|min:1|max:100',
+                'state' => 'required|min:1|max:100',
+                'zip' => 'required|min:5|max:15'
+            ]);
             
             //STORE IMAGE
             if($request->hasFile('image_file'))

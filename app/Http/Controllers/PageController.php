@@ -18,13 +18,13 @@ class PageController extends Controller
     
     public function companies()
     {
-        $companies = Company::orderBy('created_at', 'desc')->get();
+        $companies = Company::orderBy('created_at', 'desc')->paginate(7);
         return view('pages.companies', compact('companies'));
     }
     
     public function job_openings()
     {
-        $jobs = JobOpening::orderBy('created_at', 'desc')->get();
+        $jobs = JobOpening::orderBy('created_at', 'desc')->paginate(7);
         return view('pages.job_openings', compact('jobs'));
     }
 }

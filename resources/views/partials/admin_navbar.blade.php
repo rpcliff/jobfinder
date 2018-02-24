@@ -16,8 +16,8 @@
                 <li class="nav-item {{ (Request::is('companies') ? 'active' : '') }}">
                     <a class="nav-link" href="">Companies</a>
                 </li>
-                <li class="nav-item {{ (Request::is('companies') ? 'active' : '') }}">
-                    <a class="nav-link" href="">Seekers</a>
+                <li class="nav-item {{ (Request::is('admin/seekers') ? 'active' : '') }}">
+                    <a class="nav-link" href="{{ url('/admin/seekers') }}">Seekers</a>
                 </li>
                 <li class="nav-item {{ (Request::is('companies') ? 'active' : '') }}">
                     <a class="nav-link" href="">Job Openings</a>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Skill;
 use App\User;
+use App\Seeker;
 
 class AdminController extends Controller
 {
@@ -50,8 +51,18 @@ class AdminController extends Controller
         if(auth()->user()->user_type != 3)
             return back();
         
-        $users = User::all();
+        $users = User::orderBy('created_at','desc')->paginate(20);
         
         return view('admin.all_users', compact('users'));
+    }
+    
+    public function seekers()
+    {
+        if(auth()->user()->user_type != 3)
+            return back();
+        
+        $seekers = Seeker::orderBy('created_at','desc')->paginate(7);
+        
+        return view('admin.seekers', compact('seekers'));
     }
 }

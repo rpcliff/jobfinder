@@ -91,3 +91,5 @@ Route::get('/admin', 'AdminController@index')->name('admin');
 Route::get('/admin/skills', 'AdminController@skills');
 
 Route::get('/admin/all_users', 'AdminController@all_users');
+
+Route::get('/admin/seekers', 'AdminController@seekers');

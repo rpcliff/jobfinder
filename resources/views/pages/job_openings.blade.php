@@ -50,4 +50,6 @@
         </div>
     </div>
 
+    {{ $jobs->links('partials.pagination') }}
+
 @endsection

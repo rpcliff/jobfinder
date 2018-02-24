@@ -39,8 +39,7 @@
                                     <img class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;" src='/storage/company_images/noimage.png'>
                                 @endif
                             @endif
-                            
-                            <!--<img src="/storage/seeker_images/noimage.png" class="rounded-circle" style="width:40px;height:40px;padding-top:0px;padding-bottom:0px;">-->
+
                             &nbsp;{{ Auth::user()->type->name }}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
                             <a class="dropdown-item" href="{{ url('/dashboard') }}">Dashboard</a>

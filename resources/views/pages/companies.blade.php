@@ -17,15 +17,19 @@
                             <div class="col-md-2">
                                 <?php $img_src = '/storage/company_images/company'.$company->user_id.'.png'; ?>
                                 @if(file_exists(public_path($img_src)))
-                                    <img style="width:150px;height:150px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
+                                    <img style="width:120px;height:120px;" src="{{$img_src}}?={{ File::lastModified(public_path().'/'.$img_src) }}">
                                 @else
-                                    <img style='width:150px;height:150px;' src='/storage/company_images/noimage.png'>
+                                    <img style='width:120px;height:120px;' src='/storage/company_images/noimage.png'>
                                 @endif
                             </div>
                             <div class="col-md-10">
+                                <h5>
+                                    <div class="badge badge-secondary">{{$company->industry}}</div>
+                                    <div class="badge badge-secondary">Founded {{$company->founded}}</div>
+                                    <div class="badge badge-secondary">{{$company->size}} Employees</div>
+                                </h5>
                                 {{ $company->description }}
                             </div>
-
                         </div>
                     </div>
                     <div class="card-footer">
@@ -37,5 +41,7 @@
             @endforeach
         </div>
     </div>
+
+    {{ $companies->links('partials.pagination') }}
 
 @endsection

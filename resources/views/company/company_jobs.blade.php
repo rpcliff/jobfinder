@@ -26,12 +26,18 @@
                         <p><strong>Description: </strong>{{ $job->description }}</p>
                         <p><strong>Openings: </strong>{{ $job->openings }}</p>
                         <p><strong>Salary: </strong>
-                        @if(!empty($job->salary))
-                            {{ "$".number_format($job->salary,0) }}
-                        @else
-                            N/A
-                        @endif
+                            @if(!empty($job->salary))
+                                {{ "$".number_format($job->salary,0) }}
+                            @else
+                                N/A
+                            @endif
                         </p>
+                        <strong class="mr-2">Skills: </strong>
+                        <?php $count = 1 ?>
+                        @foreach($job->job_skills as $skill)
+                            <span class="badge badge-primary badge-pill">{{ $count }}. {{ $skill->skill->name }}</span>
+                            <?php $count++ ?>
+                        @endforeach
                     </div>
                     <div class="card-footer">
                         <span class='badge badge-dark text-white badge-pill'>{{ count($job->applications) }} Applications Submitted</span>

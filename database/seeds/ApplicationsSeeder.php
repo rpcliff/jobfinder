@@ -28,22 +28,24 @@ class ApplicationsSeeder extends Seeder
                 array_push($jobSeekerCombos,array($seekerIDs[$i],$jobIDs[$x]));
             }
         }
+        
+        shuffle($jobSeekerCombos);
 
         for($i = 0; $i < $num_applications; $i++)
         {
-            $ran = $faker->numberBetween(0,count($jobSeekerCombos));
-
-            $seekerID = $jobSeekerCombos[$ran][0];
-            $jobID = $jobSeekerCombos[$ran][1];
-            unset($jobSeekerCombos[$ran]);
+            $combo = array_shift($jobSeekerCombos);
+            $seekerID = $combo[0];
+            $jobID = $combo[1];
 
             $job = JobOpening::where('id',$jobID)->first();
 
+            $apply_date = $faker->dateTimeBetween($job->created_at,'now');
+            
             $application = Application::create([
                 'seeker_id' => $seekerID,
                 'job_id' => $jobID,
-                'created_at' => $faker->dateTimeBetween($job->created_at,'now'),
-                'updated_at' => $faker->dateTimeBetween($job->created_at,'now')
+                'created_at' => $apply_date,
+                'updated_at' => $apply_date
             ]);
         }
     }

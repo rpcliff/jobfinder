@@ -50,12 +50,14 @@ class CompanySeeder extends Seeder
                 $email = "cs@".strtolower($comp_name).".com";
             }
             
+            $join_date = $faker->dateTimeBetween($startDate,'now');
+            
             $user = User::create([
                'email' => $email,
                 'user_type' => 2,
                 'password' => bcrypt('asdf'),
-                'created_at' => $faker->dateTimeBetween($startDate,'now'),
-                'updated_at' => $faker->dateTimeBetween($startDate,'now')
+                'created_at' => $join_date,
+                'updated_at' => $join_date
             ]);
             
             $description = trim($companies[$i][2]);

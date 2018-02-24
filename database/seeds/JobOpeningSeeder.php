@@ -47,6 +47,8 @@ class JobOpeningSeeder extends Seeder
             $ranSalary = $ranSalary * 1000;
             if($ranSalary <= 30000) $ranSalary = 0;
             
+            $date = $faker->dateTimeBetween($startDate,'now');
+            
             $job = JobOpening::create([
                 'company_id' => $randomCompany->user_id,
                 'title' => $faker->randomElement($job_titles),
@@ -56,8 +58,8 @@ class JobOpeningSeeder extends Seeder
                 'type' => $faker->randomElement($job_types),
                 'education' => $faker->randomElement($education),
                 'experience' => $faker->randomElement($experience),
-                'created_at' => $faker->dateTimeBetween($startDate,'now'),
-                'updated_at' => $faker->dateTimeBetween($startDate,'now')
+                'created_at' => $date,
+                'updated_at' => $date
             ]);
             
             $skills_ids = $faker->shuffle($skills); //Shuffle skill IDs

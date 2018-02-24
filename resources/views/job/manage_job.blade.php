@@ -69,6 +69,10 @@
     <h2 class="text-center pb-2">Applications</h2>
     <div class="row">
         <div class="col-md-12">
+            @if(count($applications)==0)
+                <div class="alert alert-danger">No applications have been submitted.</div>
+            @endif
+            
             @foreach($applications as $application)
                 <div class="card mb-2">
                     <div class="card-header bg-dark text-white">
