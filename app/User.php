@@ -33,6 +33,9 @@ class User extends Authenticatable
             return $this->hasOne(Seeker::class);
         else if($this->user_type == 2)
             return $this->hasOne(Company::class);
-        else return null;
+        else if($this->user_type == 3)
+            return $this->hasOne(Admin::class);
+        else
+            return null;
     }
 }

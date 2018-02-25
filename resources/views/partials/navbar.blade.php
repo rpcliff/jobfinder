@@ -43,13 +43,19 @@
                             &nbsp;{{ Auth::user()->type->name }}</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown07">
                             <a class="dropdown-item" href="{{ url('/dashboard') }}">Dashboard</a>
-                            @if(auth()->user()->user_type==1)
-                                <a class="dropdown-item" href="{{ url('/applications') }}">Your Applications</a>
-                            @elseif(auth()->user()->user_type==2)
-                                <a class="dropdown-item" href="{{ url('/company_jobs') }}">Your Job Openings</a>
+                            @if(auth()->user()->user_type==3) <!-- ADMIN -->
+                                <a class="dropdown-item" href="{{ url('/admin/all_users') }}">All Users</a>
+                                <a class="dropdown-item" href="{{ url('/admin/skills') }}">Skills</a>
+                                <a class="dropdown-item" href="{{ url('/admin/seekers') }}">Seekers</a>
+                            @else
+                                @if(auth()->user()->user_type==1) <!-- SEEKER -->
+                                    <a class="dropdown-item" href="{{ url('/applications') }}">Your Applications</a>
+                                @elseif(auth()->user()->user_type==2) <!-- COMPANY -->
+                                    <a class="dropdown-item" href="{{ url('/company_jobs') }}">Your Job Openings</a>
+                                @endif
+                                <a class="dropdown-item" href="{{ url('/profile/'.Auth::user()->id) }}">Profile</a>
+                                <a class="dropdown-item" href="#">Account</a>
                             @endif
-                            <a class="dropdown-item" href="{{ url('/profile/'.Auth::user()->id) }}">Profile</a>
-                            <a class="dropdown-item" href="#">Account</a>
                             <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                         </div>
                     @else

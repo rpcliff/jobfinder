@@ -93,8 +93,8 @@
                     @foreach($jobs as $job)
                         <div class="card">
                             <div class="card-header">
-                                <span class="badge badge-light pull-right">{{ $job->created_at }}</span>
-                                {{ $job->title }}
+                                <span class="badge badge-secondary pull-right">{{ $job->created_at->diffForHumans() }}</span>
+                                <strong>{{ $job->title }}</strong>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -105,6 +105,7 @@
                                         @if(auth()->check() && $info->user_id == auth()->user()->id)
                                             <a href="{{ url('/job/'.$job->id.'/manage') }}" class="btn btn-sm btn-warning btn-block">Manage</a>
                                         @endif
+                                        <a href="{{ url('/job/'.$job->id) }}" class="mt-1 btn btn-sm btn-primary btn-block">View</a>
                                     </div>
                                 </div>
                             </div>

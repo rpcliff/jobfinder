@@ -39,7 +39,7 @@ class AuthController extends Controller
         }
         else if(auth()->user()->user_type == 3)
         {
-            return redirect()->route('admin');
+            return redirect()->route('dashboard');
         }
         
         return redirect()->home();

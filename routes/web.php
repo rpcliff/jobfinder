@@ -20,6 +20,10 @@ Route::get('/companies', 'PageController@companies')->name('companies');
 
 Route::get('/job_openings', 'PageController@job_openings')->name('job_openings');
 
+//Route::post('/companies', 'PageController@company_search');
+
+//Route::post('/companies/order', 'PageController@company_order');
+
 
 /*
  *      PROFILE ROUTES
@@ -86,8 +90,6 @@ Route::get('/logout', 'AuthController@logout');
 /*
  *      ADMIN ROUTES
  */
-Route::get('/admin', 'AdminController@index')->name('admin');
-
 Route::get('/admin/skills', 'AdminController@skills');
 
 Route::get('/admin/all_users', 'AdminController@all_users');

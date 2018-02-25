@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.master')
 
 @section('content')
     <h1 class="text-center">All Users</h1>
@@ -21,11 +21,9 @@
                             @endif
                             </span>
                             <strong>
-                                @if($user->user_type != 3)
-                                    {{ $user->type->name }}
-                                @else
-                                    Master Administrator
-                                @endif
+
+                                {{ $user->type->name }}
+
                             </strong>
                         </h3>
                         

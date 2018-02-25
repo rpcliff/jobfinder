@@ -13,7 +13,7 @@
                 <img style='width:250px;height:250px;' src='/storage/company_images/noimage.png'>
             @endif
             
-            <a href="{{ url('/profile/'.$job->company_id) }}" class="btn btn-primary btn-block" style="margin-top:10px;">View Company</a>
+            <!--<a href="{{ url('/profile/'.$job->company_id) }}" class="btn btn-primary btn-block" style="margin-top:10px;">View Company</a>-->
         </div>
         <div class="col-md-9">
             
@@ -63,17 +63,28 @@
                     N/A
                 @endif
             </p>
+            <strong>Skills: </strong>
+            @foreach($job->job_skills as $skill)
+                <span class="badge badge-secondary">{{ $skill->skill->name }}</span>
+            @endforeach
         </div>
     </div>
     <hr>
-    <h2 class="text-center pb-2">Applications</h2>
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="pb-2">Applicants ordered by Best Match
+            </h2>
+        </div>
+    </div>
+    
     <div class="row">
         <div class="col-md-12">
             @if(count($applications)==0)
                 <div class="alert alert-danger">No applications have been submitted.</div>
             @endif
-            
-            @foreach($applications as $application)
+ 
+            @foreach($applications as $key => $val)
+                <?php $application = App\Application::find($key) ?>
                 <div class="card mb-2">
                     <div class="card-header bg-dark text-white">
                         <h3><span class="badge badge-light pull-right">Submitted: {{ $application->created_at->diffForHumans() }}</span>
@@ -90,7 +101,10 @@
                                 @endif
                             </div>
                             <div class="col-md-10">
+                                <span class="badge badge-pill badge-primary pull-right">Skills Match Percent: {{ $val[0] }}%</span>
+                                <span class="badge badge-pill badge-primary pull-right mr-1">Matched {{ $val[1] }} out of 5 Skills</span>
                                 <p><strong>Phone: </strong>{{ $application->seeker->phone }}</p>
+                                
                                 <p><strong>Location: </strong>{{ $application->seeker->city }}, {{ $application->seeker->state }} {{ $application->seeker->zipcode }}</p>
                                 <p><strong>Age: </strong>{{ $application->seeker->age }}</p>
                                 

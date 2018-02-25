@@ -117,8 +117,8 @@ class JobController extends Controller
         if($job->company_id != auth()->user()->id)
             return back();
         
-        $applications = Application::where('job_id',$job_id)->get();
-        
+        $applications = getSortedApplicants($job_id);
+
         return view('job.manage_job', compact('job', 'applications'));
     }
     

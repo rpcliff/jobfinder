@@ -14,14 +14,6 @@ class AdminController extends Controller
         $this->middleware('auth');
     }
     
-    public function index()
-    {
-        if(auth()->user()->user_type != 3)
-           return back();
-        
-        return view('admin.index');
-    }
-    
     public function skills()
     {
         if(auth()->user()->user_type != 3)

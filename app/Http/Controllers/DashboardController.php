@@ -25,6 +25,10 @@ class DashboardController extends Controller
         {
             return view('company.dashboard');
         }
+        else if(auth()->user()->user_type == 3)
+        {
+            return view('admin.dashboard');
+        }
         
     }
     
