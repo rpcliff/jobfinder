@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('content')
-    <h1 class="text-center">All Users</h1>
+    <h2>All Users - Admin</h2>
     <hr>
     <div class="row">
         <div class="col-md-12">

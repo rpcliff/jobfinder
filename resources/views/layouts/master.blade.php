@@ -15,13 +15,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         @yield('page_css')
         
-        <title>Laravel</title>
+        <link rel="shortcut icon" href="/storage/jf-logo_small.png">
+        <title>JobFinder</title>
 
     </head>
     <body>
-
-        @include('partials.navbar')
         
+        @include('partials.navbar')
+
         <main role="main">
             <div class="container">
                 @yield('content')

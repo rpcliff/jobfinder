@@ -97,3 +97,9 @@ Route::get('/admin/skills', 'AdminController@skills');
 Route::get('/admin/all_users', 'AdminController@all_users');
 
 Route::get('/admin/seekers', 'AdminController@seekers');
+
+Route::get('/admin/companies', 'AdminController@companies');
+
+Route::get('/admin/job_openings', 'AdminController@job_openings');
+
+Route::get('/admin/applications', 'AdminController@applications');

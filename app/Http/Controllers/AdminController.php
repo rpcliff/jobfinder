@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Skill;
 use App\User;
 use App\Seeker;
+use App\Company;
+use App\JobOpening;
+use App\Application;
 
 class AdminController extends Controller
 {
@@ -56,5 +59,35 @@ class AdminController extends Controller
         $seekers = Seeker::orderBy('created_at','desc')->paginate(7);
         
         return view('admin.seekers', compact('seekers'));
+    }
+    
+    public function companies()
+    {
+        if(auth()->user()->user_type != 3)
+            return back();
+        
+        $companies = Company::orderBy('created_at','desc')->paginate(7);
+        
+        return view('admin.companies', compact('companies'));
+    }
+    
+    public function job_openings()
+    {
+        if(auth()->user()->user_type != 3)
+            return back();
+        
+        $jobs = JobOpening::orderBy('created_at','desc')->paginate(7);
+        
+        return view('admin.job_openings', compact('jobs'));
+    }
+    
+    public function applications()
+    {
+        if(auth()->user()->user_type != 3)
+            return back();
+        
+        $applications = Application::orderBy('created_at','desc')->paginate(7);
+        
+        return view('admin.applications', compact('applications'));
     }
 }
