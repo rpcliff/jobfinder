@@ -20,9 +20,9 @@ Route::get('/companies', 'PageController@companies')->name('companies');
 
 Route::get('/job_openings', 'PageController@job_openings')->name('job_openings');
 
-//Route::post('/companies', 'PageController@company_search');
+Route::get('/about', 'PageController@about');
 
-//Route::post('/companies/order', 'PageController@company_order');
+Route::get('/contact', 'PageController@contact');
 
 
 /*
@@ -49,6 +49,8 @@ Route::delete('/profile/{user_id}/experience/{experience_id}/delete', 'ProfileCo
 Route::get('/profile/{user_id}/edit_education', 'ProfileController@edit_education');
 
 Route::post('/profile/{user_id}/add_education', 'ProfileController@add_education');
+
+Route::get('/profile/{user_id}/account', 'ProfileController@account');
 
 
 /*

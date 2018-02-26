@@ -1,6 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark pb-0 pt-0">
     <div class="container">
-        <a class="navbar-brand" href="#">{{ config('app.name') }}</a>
+        <a class="navbar-brand" href="/">
+            <img src="/storage/jf-logo_small.png" width="50" height="50">
+            {{ config('app.name') }}
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample07" aria-controls="navbarsExample07" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -10,11 +13,17 @@
                 <li class="nav-item {{ (Request::is('/') ? 'active' : '') }}">
                     <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                 </li>
-                <li class="nav-item {{ (Request::is('job_openings') ? 'active' : '') }}">
+                <li class="nav-item {{ (Request::is('job_openings*') ? 'active' : '') }}">
                     <a class="nav-link" href="{{ url('/job_openings') }}">Job Openings</a>
                 </li>
-                <li class="nav-item {{ (Request::is('companies') ? 'active' : '') }}">
+                <li class="nav-item {{ (Request::is('companies*') ? 'active' : '') }}">
                     <a class="nav-link" href="{{ url('/companies') }}">Companies</a>
+                </li>
+                <li class="nav-item {{ (Request::is('about') ? 'active' : '') }}">
+                    <a class="nav-link" href="{{ url('/about') }}">About</a>
+                </li>
+                <li class="nav-item {{ (Request::is('contact') ? 'active' : '') }}">
+                    <a class="nav-link" href="{{ url('/contact') }}">Contact</a>
                 </li>
 
             </ul>
@@ -54,8 +63,9 @@
                                     <a class="dropdown-item" href="{{ url('/company_jobs') }}">Your Job Openings</a>
                                 @endif
                                 <a class="dropdown-item" href="{{ url('/profile/'.Auth::user()->id) }}">Profile</a>
-                                <a class="dropdown-item" href="#">Account</a>
+                                <a class="dropdown-item" href="{{ url('/profile/'.Auth::user()->id.'/account') }}">Account</a>
                             @endif
+                            <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="{{ url('/logout') }}">Logout</a>
                         </div>
                     @else

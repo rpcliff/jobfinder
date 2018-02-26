@@ -1,5 +1,17 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
 body {
-  padding-bottom: 20px;
+  //margin-bottom: 60px;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding-bottom: 6rem;
+  min-height: 100%;
 }
 
 main {
@@ -8,4 +20,14 @@ main {
 
 .navbar {
   margin-bottom: 20px;
+}
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
 }

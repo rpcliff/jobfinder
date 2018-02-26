@@ -18,98 +18,73 @@ class PageController extends Controller
     
     public function companies()
     {
-        /*
-        //\Session::forget('query');
-        //\Session::forget('order');
-        //\Session::flush();
-        $companies = Company::orderBy('created_at','desc')->paginate(5);
-        dd($companies);
-        //return view('pages.companies', compact('companies'));
-        
-        $query = \DB::table('companies');
-
-        if(\Session::has('query'))
+        if(request()->has('order') && request()->has('sort'))
         {
-            $search = \Session::get('query');
-            $var = '%'.$search.'%';
-            $query->where('name','like',$var);
+            if(request()->order == "Joined") $field = 'created_at';
+            else if(request()->order == "Founded") $field = 'founded';
+            else if(request()->order == "Employees") $field = "size";
+            else $field = 'created_at';
+            $companies = Company::orderBy($field,request()->sort)->paginate(5)
+                ->appends([
+                    'order' => request('order'),
+                    'sort' => request('sort')
+                ]);
+        }
+        else if(request()->has('search') && request()->has('search_field'))
+        {
+            if(request()->search_field == "Name") $field = "name";
+            else $field = "name";
+            $search = '%'.request()->search.'%';
+            $companies = Company::where($field,'like',$search)->paginate(5)
+                ->appends([
+                    'search' => request('search'),
+                    'search_field' => request('search_field')
+                ]);
         }
         else
-        {
-            
-        }
-        
-        if(\Session::has('order'))
-        {
-            $query->orderBy('created_at','desc');
-        }
-        
-        $companies = $query->paginate(5);
-        //dd($companies);*/
-        $companies = Company::orderBy('created_at', 'desc')->paginate(5);
+            $companies = Company::orderBy('created_at', 'desc')->paginate(5);
 
         return view('pages.companies', compact('companies'));
     }
     
     public function job_openings()
     {
-        $jobs = JobOpening::orderBy('created_at', 'desc')->paginate(5);
+        if(request()->has('order') && request()->has('sort'))
+        {
+            if(request()->order == "Created") $field = 'created_at';
+            else if(request()->order == "Salary") $field = 'salary';
+            else if(request()->order == "Openings") $field = "openings";
+            else $field = 'created_at';
+            $jobs = JobOpening::orderBy($field,request()->sort)->paginate(5)
+                ->appends([
+                    'order' => request('order'),
+                    'sort' => request('sort')
+                ]);
+        }
+        else if(request()->has('search') && request()->has('search_field'))
+        {
+            if(request()->search_field == "Title") $field = "title";
+            else $field = "title";
+            $search = '%'.request()->search.'%';
+            $jobs = JobOpening::where($field,'like',$search)->paginate(5)
+                ->appends([
+                    'search' => request('search'),
+                    'search_field' => request('search_field')
+                ]);
+        }
+        else
+            $jobs = JobOpening::orderBy('created_at', 'desc')->paginate(5);
+        
         return view('pages.job_openings', compact('jobs'));
     }
     
-    public function company_search(Request $request, Company $company)
+    public function about()
     {
-        $query = \DB::table('companies');
-
-        if(isset($request->search))
-        {
-            $search = $request->search;
-            $var = '%'.$search.'%';
-            $query->where('name','like',$var);
-            \Session::flash('query',$search);
-        }
-        
-        if(isset($request->order))
-        {
-            $query->orderBy('created_at','desc');
-            \Session::flash('order',$request->order);
-        }
-        
-        $companies = $query->paginate(5);
-        //dd($result);
-        
-        //$companies = Company::where('name','like',$var)->paginate(5);
-        //$search = "Company Name containing '".$search."'";
-        //\Session::flash('query',$search);
-        return view('pages.companies', compact('companies'));
+        return view('pages.about');
     }
     
-    public function company_order(Request $request)
+    public function contact()
     {
-        $order_by = $request->order;
-        if($order_by == "Oldest Joined")
-        {
-            $companies = Company::orderBy('created_at', 'asc')->paginate(5);
-        }
-        else if($order_by == "Newest Joined")
-        {
-            $companies = Company::orderBy('created_at', 'desc')->paginate(5);
-        }
-        else if($order_by == "Job Openings")
-        {
-            $companies = \DB::table('companies')
-                ->join('job_openings','companies.user_id','=','job_openings.company_id')
-                ->selectRaw('name,user_id,industry,companies.description as description,count(job_openings.id) as job_openings,phone,contact_email,founded,size,city,state,zipcode,website,companies.created_at as created_at')
-                ->groupBy('user_id')
-                ->orderByRaw('job_openings DESC')->paginate(5);
-            //return view('pages.companies', compact('companies'));
-            //dd($companies);
-        }
-        else
-        {
-            $companies = Company::orderBy('created_at', 'desc')->paginate(5);
-        }
-        \Session::flash('order',$order_by);
-        return view('pages.companies', compact('companies'));
+        return view('pages.contact');
     }
 }

@@ -4,69 +4,67 @@
 
     <h3>Companies</h3>
     <hr>
-<!--
-    <form method="POST" action="{{ url('/companies') }}">
-    <div class="row">
 
-        <div class="col-md-6">
-            
-                {{ csrf_field() }}
+    <div class="row">
+        <div class="col-md-8">
+            <form method="GET" action="{{ url('/companies') }}">
                 <div class="form-group row">
-                    <div class="col-sm-6">
-                        <input type="text" class="form-control" id="search" name="search">
+                    <div class="col-md-4 pr-0">
+                        <input type="text" class="form-control" name="search" id="search" value="{{(app('request')->input('search'))}}">
                     </div>
-                    <div class="col-sm-3">
-                        <select class="form-control" id="search_type" name="search_type">
+                    <div class="col-md-2 pr-0">
+                        <select class="form-control" name="search_field" id="search_field">
                             <option>Name</option>
+
                         </select>
                     </div>
-                    <div class="col-sm-3">
-                        <input type="submit" class="btn btn-secondary btn-block" value="Search">
+                    <div class="col-md-4 pr-0">
+                        <input type="submit" class="btn btn-primary" value="Search">
+                        @if(app('request')->input('search'))
+                            <a href="{{ url('/companies') }}" class="btn btn-danger">Clear</a>
+                        @endif
                     </div>
                 </div>
-                <div class="form-group row">
-                    @if(Session::has('query'))
-                        <div class="col-sm-9">
-                            <strong>Search: </strong>{{ Session::get('query') }}
-                        </div>
-                        <div class="col-sm-3">
-                            <a href="{{ url('/companies') }}" class="btn btn-danger btn-sm btn-block">Clear</a>
-                        </div>
-                    @else
-                        <div class="col-sm-12 pb-2">
-                        
-                        </div>
-                    @endif
-                </div>
-            
+            </form>
         </div>
-        <div class="col-md-6">
-            <form method="POST" action="{{ url('/companies/order') }}" id="order_form">
+        <div class="col-md-4">
+            <form method="GET" action="{{ url('/companies') }}">
                 <div class="form-group row">
-                    <div class="col-sm-12">
-                        <select class="form-control pull-right" style="width:150px;" id="order" name="order">
-                            <option {{ Session::has('order')?((Session::get('order')=='Newest Joined')?'selected':''):''}}>Newest Joined</option>
-                            <option {{ Session::has('order')?((Session::get('order')=='Oldest Joined')?'selected':''):''}}>Oldest Joined</option>
-                            <option {{ Session::has('order')?((Session::get('order')=='Job Openings')?'selected':''):''}}>Job Openings</option>
+                    <div class="col-md-5 pr-0">
+                        <select class="form-control" id="order" name="order">
+                            <option {{(app('request')->input('order')=="Joined") ? "selected" : "" }}>Joined</option>
+                            <option {{(app('request')->input('order')=="Founded") ? "selected" : "" }}>Founded</option>
+                            <option {{(app('request')->input('order')=="Employees") ? "selected" : "" }}>Employees</option>
                         </select>
+                    </div>    
+                    <div class="col-md-4 pr-0">
+                        <select class="form-control" id="sort" name="sort">
+                            <option {{(app('request')->input('sort')=="Desc") ? "selected" : "" }}>Desc</option>
+                            <option {{(app('request')->input('sort')=="Asc") ? "selected" : "" }}>Asc</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <input type="submit" class="btn btn-primary btn-block" value="Sort">
                     </div>
                 </div>
             </form>
         </div>
     </div>
-    </form>
--->
+    <hr class="mt-0">
     <div class="row">
         <div class="col-md-12">
+            @if(count($companies)==0)
+                <div class="alert alert-danger"><h4><strong>Oops!</strong> There are no companies to list.</h4></div>
+            @endif
             @foreach($companies as $company)
-                
                 <div class="card">
                     <div class="card-header bg-dark text-white">
                         @if(isset($company->created_at))
                                 <!--<h3><span class="badge badge-light pull-right">{{ $company->created_at }}</span>-->
                         @endif
-                        <h3><span class="badge badge-light pull-right">{{ $company->city }}, {{ $company->state }}</span>
-                        <strong>{{ $company->name }}</strong></h3>
+                        <span class="badge badge-light pull-right badge-pill">{{ $company->created_at->diffForHumans() }}</span>
+                        
+                        <h3 class="pb-0 mb-0"><strong>{{ $company->name }}</strong></h3>
                     </div>
                     <div class="card-body">
                         <div class="row">
@@ -80,6 +78,7 @@
                                 @endif
                             </div>
                             <div class="col-md-10">
+                                <h3><span class="badge badge-secondary pull-right">{{ $company->city }}, {{ $company->state }}</span>
                                 <h5>
                                     <div class="badge badge-secondary">{{$company->industry}}</div>
                                     <div class="badge badge-secondary">Founded {{$company->founded}}</div>
@@ -112,7 +111,9 @@
 
 <script>
 $("#order").change(function(){
-    $('#order_form').submit();
+    //var text = $('#order').find(":selected").text();
+    //location.href = '?order=asc';
+    //$('#order_form').submit();
 });
 </script>
 

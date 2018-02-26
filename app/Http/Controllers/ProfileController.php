@@ -365,4 +365,19 @@ class ProfileController extends Controller
             return back();
         }
     }
+    
+    public function account($user_id)
+    {
+        if(auth()->user()->id != $user_id || auth()->user()->user_type > 2)
+            return back();
+        
+        if(auth()->user()->user_type == 1)
+        {
+            return view('seeker.account');
+        }
+        else
+        {
+            return view('company.account');
+        }
+    }
 }

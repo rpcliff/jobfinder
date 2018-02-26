@@ -23,14 +23,23 @@
                                 <strong>Location: </strong>{{ $seeker->city }}, {{ $seeker->state }} {{ $seeker->zipcode }}<br>
                                 <strong>Age: </strong>{{ $seeker->age }}
                                 </p>
-                                <p></p>
                             </div>
                             <div class="col-md-4">
                                 <h6>{{ $seeker->user->email }}</h6>
                                 <strong>Applications: </strong>{{ count($seeker->applications) }}
                             </div>
                             <div class="col-md-2">
-                                <span class="badge badge-secondary pull-right">{{ $seeker->created_at->toDayDateTimeString() }}</span>
+                                <span class="badge badge-secondary">{{ $seeker->created_at->toDayDateTimeString() }}</span>
+                                
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            
+                            <div class="col-md-12">
+                                <a href="" class="btn btn-sm btn-outline-primary pr-2 pl-2 mt-2">View</a>
+                                <a href="" class="btn btn-sm btn-outline-warning ml-2 mr-2 mt-2">Freeze</a>
+                                <a href="" class="btn btn-sm btn-outline-danger mt-2">Delete</a>
                             </div>
                         </div>
                     </li>

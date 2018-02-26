@@ -28,9 +28,10 @@
             </div>
         </main>
         
-        <footer class="footer">
+        <footer class="footer bg-dark text-white">
           <div class="container">
-            <span class="text-muted">Place sticky footer content here.</span>
+            
+            <span class="">	&copy; 2018 JobFinder</span>
           </div>
         </footer>
         
