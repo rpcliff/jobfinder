@@ -90,10 +90,10 @@
                     @if(auth()->check() && $info->user_id == auth()->user()->id)
                         <a href="{{ url('/profile/'.$info->user_id.'/edit_experience') }}" class="pull-right btn btn-sm btn-danger">Edit Experience</a>
                     @endif
-                    <h5><strong>Experience</strong></h5>
+                    <h5><strong>Work Experience</strong></h5>
                 </div>
                 <div class="card-body">
-                    @if(count($educations)==0)
+                    @if(count($experiences)==0)
                         <div class="alert alert-danger">
                             <h5 style="text-align: center;">User has not added any Experience</h5>
                         </div>
@@ -137,7 +137,7 @@
                     <div class="card">
                         <div class="card-header">
                             
-                            <strong>{{$education->type}}</strong> at {{$education->university}}
+                            <strong>{{$education->education->education}}</strong> at {{$education->university}}
                         </div>
                         <div class="card-body">
                             <span class="badge badge-info pull-right">

@@ -22,25 +22,23 @@
                         {{ csrf_field() }}
                         
                         <div class="form-group row">
-                            <label for="university" class="col-sm-4 col-form-label">University/Company: </label>
+                            <label for="university" class="col-sm-4 col-form-label">University: </label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="university" id="university" required>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="degree" class="col-sm-4 col-form-label">Degree/Certification: </label>
+                            <label for="degree" class="col-sm-4 col-form-label">Degree: </label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="degree" name="degree">
-                                    <option>Associates Degree</option>
-                                    <option>Bachelors Degree</option>
-                                    <option>Masters Degree</option>
-                                    <option>Doctoral Degree</option>
-                                    <option>Certification</option>
+                                    @foreach($degrees as $degree)
+                                        <option value="{{ $degree->id }}">{{ $degree->education }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label for="title" class="col-sm-4 col-form-label">Degree/Cert Title: </label>
+                            <label for="title" class="col-sm-4 col-form-label">Degree Title: </label>
                             <div class="col-sm-8">
                                 <input type="text" class="form-control" name="title" id="title" required>
                             </div>
@@ -65,11 +63,11 @@
             @foreach($educations as $education)
                 <div class="card" style="margin-top:10px;">
                     <div class="card-header">
-                        <h5><strong class="card-title text-center">{{$education->type}}</strong> at {{$education->university}}</h5>
+                        <h5><strong class="card-title text-center">{{$education->education->education}}</strong> at {{$education->university}}</h5>
                     </div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ url('/profile/'.Auth::user()->id.'/experience/'.$education->id.'/delete') }}">
+                        <form method="POST" action="{{ url('/profile/'.Auth::user()->id.'/education/'.$education->id.'/delete') }}">
                             {{ csrf_field() }}
                             {{ method_field('DELETE') }}
                             <input type="submit" class="btn btn-sm btn-danger pull-right" value="Delete">

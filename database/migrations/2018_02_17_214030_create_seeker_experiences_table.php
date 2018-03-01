@@ -24,6 +24,7 @@ class CreateSeekerExperiencesTable extends Migration
             $table->date('ended')->nullable();
             $table->integer('present')->default(0);
             $table->text('description');
+            $table->integer('days_experience');
             
             $table->timestamps();
             

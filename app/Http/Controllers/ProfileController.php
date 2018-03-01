@@ -12,6 +12,7 @@ use App\SeekerSkill;
 use App\SeekerExperience;
 use App\SeekerEducation;
 use App\JobOpening;
+use App\Education;
 
 class ProfileController extends Controller
 {
@@ -267,6 +268,24 @@ class ProfileController extends Controller
                 return back()->withErrors(['field_name' => ['Must have end date or present checked.']]);
             }
             
+            if(request('date_end')==null)
+                $date_end = now();
+            else 
+                $date_end = new \DateTime($request->date_end);
+
+            $date_start = new \DateTime($request->date_start);
+            
+            //Check if start date is before end date
+            if($date_start > $date_end)
+            {
+                return back()->withErrors(['field_name' => ['End Date cannot be before Start Date.']]);
+            }
+            
+            //Get Experience in days
+            $interval = $date_start->diff($date_end);
+            $days_experience = $interval->format('%a');
+            
+            //Store in DB
             $experience = new SeekerExperience;
             $experience->seeker_id = $user_id;
             $experience->company = $request->company;
@@ -279,6 +298,7 @@ class ProfileController extends Controller
                 $experience->present = 1;
             
             $experience->description = $request->description;
+            $experience->days_experience = $days_experience;
             
             $experience->save();
             
@@ -322,9 +342,10 @@ class ProfileController extends Controller
         
         if(auth()->user()->user_type == 1)
         {
+            $degrees = Education::all();
             $educations = SeekerEducation::where('seeker_id',$user_id)->orderBy('achieved', 'desc')->get();
             
-            return view('seeker.education_edit', compact('educations'));
+            return view('seeker.education_edit', compact('educations', 'degrees'));
         }
         else //Not a Seeker
         {
@@ -353,7 +374,7 @@ class ProfileController extends Controller
             $education = new SeekerEducation;
             $education->seeker_id = $user_id;
             $education->university = $request->university;
-            $education->type = $request->degree;
+            $education->education_id = $request->degree;
             $education->title = $request->title;
             $education->achieved = date('Y-m-d', strtotime($request->achieved));
             $education->save();
@@ -364,6 +385,23 @@ class ProfileController extends Controller
         {
             return back();
         }
+    }
+    
+    /*
+     * AUTH: SEEKER
+     * DELETE SEEKER EDUCATION
+     */
+    public function delete_education($user_id, $education_id)
+    {
+        if(auth()->user()->id != $user_id)
+            return back();
+        
+        if(auth()->user()->user_type != 1)
+            return back();
+        
+        SeekerEducation::where('id',$education_id)->delete();
+        
+        return redirect('/profile/'.$user_id.'/edit_education');
     }
     
     public function account($user_id)

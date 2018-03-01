@@ -15,7 +15,9 @@ class TestSeeder extends Seeder
             CompanySeeder::class,
             SeekerSeeder::class,
             JobOpeningSeeder::class,
-            ApplicationsSeeder::class
+            ApplicationsSeeder::class,
+            SeekerEducationSeeder::class,
+            SeekerExperienceSeeder::class
         ]);
     }
 }

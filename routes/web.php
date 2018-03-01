@@ -50,6 +50,8 @@ Route::get('/profile/{user_id}/edit_education', 'ProfileController@edit_educatio
 
 Route::post('/profile/{user_id}/add_education', 'ProfileController@add_education');
 
+Route::delete('/profile/{user_id}/education/{education_id}/delete', 'ProfileController@delete_education');
+
 Route::get('/profile/{user_id}/account', 'ProfileController@account');
 
 

@@ -10,4 +10,9 @@ class SeekerEducation extends Model
     {
         return $this->belongsTo(Seeker::class, 'seeker_id', 'user_id');
     }
+    
+    public function education()
+    {
+        return $this->belongsTo(Education::class, 'education_id', 'id');
+    }
 }

@@ -19,7 +19,8 @@ class CreateSeekerEducationsTable extends Migration
             $table->increments('id');
             $table->integer('seeker_id')->unsigned();
             $table->string('university');
-            $table->string('type');
+            //$table->string('type');
+            $table->integer('education_id')->unsigned();
             $table->string('title');
             $table->date('achieved');
             
