@@ -31,7 +31,6 @@ class JobOpeningSeeder extends Seeder
                            'Network Architect','.NET Developer','IT Support Manager','Help Desk Technician','Help Desk Specialist','Front End Developer');
         
         $job_types = array('Full Time','Part Time','As Needed');
-        $education = array('Not necessary','Associates Degree','Bachelors Degree','Masters Degree','Doctoral Degree','Certification');
         $experience = array('Not necessary','1-3 Years','3-5 Years','5-10 Years','10-20 Years');
         
         for($i = 0; $i < $job_openings; $i++)
@@ -56,7 +55,7 @@ class JobOpeningSeeder extends Seeder
                 'openings' => $faker->numberBetween(1,10),
                 'salary' => $ranSalary,
                 'type' => $faker->randomElement($job_types),
-                'education' => $faker->randomElement($education),
+                'education' => $faker->numberBetween(0,4),
                 'experience' => $faker->randomElement($experience),
                 'created_at' => $date,
                 'updated_at' => $date

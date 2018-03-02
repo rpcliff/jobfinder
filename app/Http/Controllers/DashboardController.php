@@ -17,8 +17,16 @@ class DashboardController extends Controller
     {
         if(auth()->user()->user_type == 1)
         {
-            $suggestedJobs = getSuggestedJobs(auth()->user()->id);
-
+            //$suggestedJobs = getSuggestedJobs(auth()->user()->id);
+            $suggestedJobs = suggestedJobs(auth()->user()->id);
+            
+            /*
+            foreach($suggestedJobs2 as $key => $value)
+            {
+                echo $key.", Percent: ".$value[0].", Matches: ".$value[1].", Education: ".$value[2].", Experience: ".$value[3]."<br>";
+            }
+            dd("Done");*/
+            
             return view('seeker.dashboard', compact('suggestedJobs'));
         }
         else if(auth()->user()->user_type == 2)

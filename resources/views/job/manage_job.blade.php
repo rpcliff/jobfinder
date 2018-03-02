@@ -23,7 +23,13 @@
             </p>
             <p style="font-size:1.5em;">
                 <span class="badge badge-secondary">{{ $job->type }}</span>
-                <span class="badge badge-secondary">Education: {{ $job->education }}</span>
+                <span class="badge badge-secondary">Education: 
+                    @if($job->education == 0)
+                        Not Necessary
+                    @else
+                        {{ $job->education_level->education }}
+                    @endif
+                </span>
                 <span class="badge badge-secondary">Experience: {{ $job->experience }}</span>
             </p>
             <p>
@@ -103,6 +109,20 @@
                             <div class="col-md-10">
                                 <span class="badge badge-pill badge-primary pull-right">Skills Match Percent: {{ $val[0] }}%</span>
                                 <span class="badge badge-pill badge-primary pull-right mr-1">Matched {{ $val[1] }} out of 5 Skills</span>
+                                <span class="badge badge-pill badge-primary pull-right mr-1">Meets Education: 
+                                    @if($val[2] == 0)
+                                        No
+                                    @else
+                                        Yes
+                                    @endif
+                                </span>
+                                <span class="badge badge-pill badge-primary pull-right mr-1">Meets Experience: 
+                                    @if($val[3] == 0)
+                                        No
+                                    @else
+                                        Yes
+                                    @endif
+                                </span>
                                 <p><strong>Phone: </strong>{{ $application->seeker->phone }}</p>
                                 
                                 <p><strong>Location: </strong>{{ $application->seeker->city }}, {{ $application->seeker->state }} {{ $application->seeker->zipcode }}</p>

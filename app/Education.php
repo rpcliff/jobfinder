@@ -12,4 +12,9 @@ class Education extends Model
     {
         return $this->hasMany(SeekerEducation::class, 'education_id');
     }
+    
+    public function job_educations()
+    {
+        return $this->hasMany(JobOpening::class, 'education');
+    }
 }

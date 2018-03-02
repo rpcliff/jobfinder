@@ -43,4 +43,9 @@ class Seeker extends Model
     {
         return \App\Application::where('job_id',$job_id)->where('seeker_id',$seeker_id)->get();
     }
+    
+    public function highest_education($seeker_id)
+    {
+        return \App\SeekerEducation::where('seeker_id',$seeker_id)->orderBy('education_id','desc')->first();
+    }
 }

@@ -74,12 +74,10 @@
                             <label for="education" class="col-sm-4 col-form-label">Education Wanted: </label>
                             <div class="col-sm-8">
                                 <select class="form-control" id="education" name="education">
-                                        <option>Not neccesary</option>
-                                        <option>Associates Degree</option>
-                                        <option>Bachelors Degree</option>
-                                        <option>Masters Degree</option>
-                                        <option>Doctoral Degree</option>
-                                        <option>Certification</option>
+                                        <option value="0">Not neccesary</option>
+                                        @foreach($educations as $education)
+                                            <option value="{{$education->id}}">{{$education->education}}</option>
+                                        @endforeach
                                 </select>
                             </div>
                         </div>

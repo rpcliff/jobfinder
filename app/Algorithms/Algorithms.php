@@ -1,140 +1,148 @@
 <?php
 
-function getSuggestedJobs($seeker_id)
+function suggestedJobs($seeker_id)
 {
     $jobs = \App\JobOpening::all();
     $seeker = \App\Seeker::find($seeker_id);
     
     $suggested = array();
+    
     foreach($jobs as $job)
     {
-        $total_points = 0;
+        //Check SKILLS
+        $points = 0;
+        $skills_matches = 0;
         foreach($job->job_skills as $job_skill)
         {
-            $matched_skill = false;
-            $job_level = 6-($job_skill->rating);
+            $job_points = 6-($job_skill->rating);
             foreach($seeker->seeker_skills as $seeker_skill)
             {
                 if($job_skill->skill_id == $seeker_skill->skill_id)
                 {
-                    $matched_skill = true;
-                    //echo "Skill - ".$job_skill->skill_id;
-                    //echo ", Job Rating - ".$job_skill->rating;
-                    //echo ", Job Level - ".$job_level;
-                    $seeker_level = round((11-($seeker_skill->rating))/2,1);
-                    //echo ", Seeker Rating - ".$seeker_skill->rating;
-                    //echo ", Seeker Level - ".$seeker_level;
-                    $diff = $job_level - $seeker_level;
-                    //echo ", Diff: ".$diff;
-                    if($diff > 0)
-                        $total_points = $total_points + $diff;
+                    $skills_matches++;
+                    $seeker_points = (11-($seeker_skill->rating))/2;
                     
-                    //echo ", Total Points: ".$total_points."<br>";
-                    
+                    if($seeker_points < $job_points)
+                        $points += $seeker_points;
+                    else
+                        $points += $job_points;
+
                     break;
                 }
             }
-            if(!$matched_skill)
-            {
-                //echo "NOT MATCHED<br>";
-                $total_points = $total_points + $job_level;
-            }
-            
         }
-
-        //Best is 0, Worst is 15
-        $percentage = round((((15-$total_points)/15.0))*100,2);
-        $suggested[$job->id] = $percentage;
+        $percentage = round(($points/15.0)*100,2); //Skills Percentage
         
+        //CHECK EDUCATION
+        $matched_education = checkEducation($job,$seeker);
+        
+        //CHECK EXPERIENCE
+        $meets_experience = checkExperience($job,$seeker);
+        
+        $suggested[$job->id] = array($percentage,$skills_matches,$matched_education,$meets_experience);
     }
-
+    
     arsort($suggested);
     
     return $suggested;
 }
 
-function getSortedApplicants($job_id)
+function getSeekerTotalExperience($seeker) //Return in DAYS
 {
-    $jobs = \App\JobOpening::where('id',$job_id)->first();
-    $job_skills = $jobs->job_skills;
+    $total_experience = 0;
+    foreach($seeker->seeker_experience as $experience)
+    {
+        $total_experience += $experience->days_experience;
+    }
+    return $total_experience;
+}
+
+function getApplicants($job_id)
+{
+    $job = \App\JobOpening::where('id',$job_id)->first();
 
     $applications = \App\Application::where('job_id',$job_id)->get();
     
     $applicants = array();
     
-    foreach($applications as $application)
+    foreach($applications as $applicant)
     {
-        $total_points = 0;
-        $seeker_skills = \App\SeekerSkill::where('seeker_id',$application->seeker->user_id)->orderBy('skill_id')->get(); //ASCENDING
-        //echo "<br>Checking Seeker: ".$application->seeker->user_id."<br>";
-        $match = getSkillsMatch($job_skills, $seeker_skills);
+        //Check SKILLS
+        $points = 0;
+        $skills_matches = 0;
+        foreach($job->job_skills as $job_skill)
+        {
+            $job_points = 6-($job_skill->rating);
+            foreach($applicant->seeker->seeker_skills as $seeker_skill)
+            {
+                if($job_skill->skill_id == $seeker_skill->skill_id)
+                {
+                    $skills_matches++;
+                    $seeker_points = (11-($seeker_skill->rating))/2;
+                    
+                    if($seeker_points < $job_points)
+                        $points += $seeker_points;
+                    else
+                        $points += $job_points;
+
+                    break;
+                }
+            }
+        }
+        $percentage = round(($points/15.0)*100,2); //Skills Percentage
         
-        $applicants[$application->id] = $match;
+        //CHECK EDUCATION
+        $matched_education = checkEducation($job,$applicant->seeker);
+        
+        //CHECK EXPERIENCE
+        $meets_experience = checkExperience($job,$applicant->seeker);
+        
+        $applicants[$applicant->id] = array($percentage,$skills_matches,$matched_education,$meets_experience);
     }
+    
     arsort($applicants);
-    //dd($applicants);
+    
     return $applicants;
 }
 
-function getSkillsMatch($job_skills, $seeker_skills)
+function checkEducation($job, $seeker)
 {
-    $points = 0;
-    $total_matches = 0;
-    foreach($job_skills as $job_skill)
+    $matched_education = false;
+    if($job->education == 0)
     {
-        $j_pts = 6-$job_skill->rating;
-        //echo "Job Skill Rating: ".$job_skill->rating."<br>";
-        //echo "Job Skill Points: ".$j_pts."<br>";
-        //echo "Looking for Skill ID: ".$job_skill->skill_id."<br>";
-        $rating = findSeekerSkillRating($job_skill->skill_id, $seeker_skills);
-        
-        if($rating == -1) //NOT FOUND
-        {
-            //echo "<strong>Skill Not Found</strong> <br>";
-        }
-        else
-        {
-            $total_matches++;
-            $s_pts = (11-$rating)/2;
-            //echo "Seeker Points: ".$s_pts."<br>";
-            if($j_pts >= $s_pts)
-            {
-                $diff = $j_pts - $s_pts;
-                $points = $points + ($j_pts - $diff);
-            }
-            else
-            {
-                $points = $points + $j_pts;
-            }
-        }
-        
-        //echo "Total Points: ".$points."<br>";
+        $matched_education = true;
     }
-    $percentage = round(((($points)/15.0))*100,2);
-    //echo "Percentage found: ".$percentage."<br><br>";
-
-    return array($percentage,$total_matches);
+    else
+    {
+        $seeker_education = $seeker->highest_education($seeker->user_id);
+        if(isset($seeker_education))
+        {
+            $seeker_highest = $seeker_education->education_id;
+            if($job->education <= $seeker_highest)
+            {
+                $matched_education = true;
+            }
+        }
+    }
+    return $matched_education;
 }
 
-function findSeekerSkillRating($skill_id, $seeker_skills)
+function checkExperience($job, $seeker)
 {
-    $left = 0;
-    $right = count($seeker_skills)-1;
-    while($left <= $right)
+    $meets_experience = false;
+    $total_experience = getSeekerTotalExperience($seeker);
+    if($job->experience == 'Not necessary')
+        $meets_experience = true;
+    else
     {
-        $mid = round($left + ($right - $left)/2);
-
-        if($seeker_skills[$mid]->skill_id == $skill_id)
-        {
-            $rating = $seeker_skills[$mid]->rating;
-
-            return $seeker_skills[$mid]->rating;
-        }
-
-        if($seeker_skills[$mid]->skill_id > $skill_id)
-            $right = $mid - 1;
-        else
-            $left = $mid + 1;
+        if($job->experience == '1-3 Years' && $total_experience >= 365) 
+            $meets_experience = true;
+        else if($job->experience == '3-5 Years' && $total_experience >= (365*3))
+            $meets_experience = true;
+        else if($job->experience == '5-10 Years' && $total_experience >= (365*5))
+            $meets_experience = true;
+        else if($job->experience == '10-20 Years' && $total_experience >= (365*10))
+            $meets_experience = true;
     }
-    return -1;
+    return $meets_experience;
 }

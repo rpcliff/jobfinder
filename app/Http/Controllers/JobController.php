@@ -7,6 +7,7 @@ use App\Skill;
 use App\JobOpening;
 use App\JobSkill;
 use App\Application;
+use App\Education;
 
 class JobController extends Controller
 {
@@ -40,7 +41,8 @@ class JobController extends Controller
             return back();
     
         $skills_list = Skill::all();
-        return view('company.create_job', compact('skills_list'));
+        $educations = Education::all();
+        return view('company.create_job', compact('skills_list', 'educations'));
     }
     
     /*
@@ -60,7 +62,7 @@ class JobController extends Controller
                 'openings' => 'required|numeric',
             ]);
         
-        //Loop to verify all 10 skills were added, and load Array of skill id's
+        //Loop to verify all 5 skills were added, and load Array of skill id's
         $skills = array();
         for($i = 0; $i < 5; $i++)
         {
@@ -117,7 +119,8 @@ class JobController extends Controller
         if($job->company_id != auth()->user()->id)
             return back();
         
-        $applications = getSortedApplicants($job_id);
+        //$applications = getSortedApplicants($job_id);
+        $applications = getApplicants($job_id);
 
         return view('job.manage_job', compact('job', 'applications'));
     }

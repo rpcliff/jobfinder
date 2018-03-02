@@ -23,4 +23,9 @@ class JobOpening extends Model
     {
         return $this->hasMany(Application::class, 'job_id');
     }
+    
+    public function education_level()
+    {
+        return $this->belongsTo(Education::class, 'education', 'id');
+    }
 }

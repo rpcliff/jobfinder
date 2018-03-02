@@ -69,8 +69,22 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class="badge badge-pill badge-secondary pull-right">{{ $val }}%</span>
-
+                                        <span class="badge badge-pill badge-secondary pull-right">Skills: {{ $val[0] }}%</span>
+                                        <span class="badge badge-pill badge-secondary pull-right">Skills Matched: {{ $val[1] }}</span>
+                                        <span class="badge badge-pill badge-secondary pull-right">Meets Education:
+                                            @if($val[2] == 0)
+                                                No
+                                            @else
+                                                Yes
+                                            @endif
+                                        </span>
+                                        <span class="badge badge-pill badge-secondary pull-right">Meets Experience:
+                                            @if($val[3] == 0)
+                                                No
+                                            @else
+                                                Yes
+                                            @endif
+                                        </span>
                                     </div>
                                 </div>
                             </li>
