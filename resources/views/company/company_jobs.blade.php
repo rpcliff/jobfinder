@@ -18,6 +18,11 @@
                         </h4>
                     </div>
                     <div class="card-body">
+                        @if($job->status == 1)
+                            <h3 class="float-right"><span class="badge badge-danger">Closed for Applications</span></h3>
+                        @elseif($job->status == 0)
+                            <h3 class="float-right"><span class="badge badge-success">Accepting Applications</span></h3>
+                        @endif
                         <h4>
                             <span class="badge badge-secondary text-white">{{ $job->type }}</span>
                             <span class="badge badge-secondary text-white">Education: {{ $job->education }}</span>

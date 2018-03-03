@@ -7,7 +7,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    Info
+                    <strong>Info</strong>
                 </div>
                 <div class="card-body">
                     <p><strong>Applications Submitted: </strong>{{ count(auth()->user()->type->applications) }}</p>
@@ -23,7 +23,7 @@
                     @if(count(auth()->user()->type->applications)>0)
                         <a href="/applications" class="btn btn-sm btn-primary pull-right">View All</a>
                     @endif
-                    Your Recent Applications
+                    <strong>Your Recent Applications</strong>
                 </div>
                 <div class="card-body">
                     @if(count(auth()->user()->type->applications)==0)
@@ -44,7 +44,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header bg-dark text-white">
-                    Suggested Jobs
+                    <strong>Suggested Jobs</strong>
                 </div>
                 <div class="card-body">
                     <ul class="list-group">
@@ -64,21 +64,22 @@
                                     </div>
                                     <div class="col-md-9">
                                         <strong>{{ $job->title }}</strong>
-
+                                        <a href="{{ url('/job/'.$job->id) }}" class="btn btn-primary btn-sm pull-right">View</a>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <span class="badge badge-pill badge-secondary pull-right">Skills: {{ $val[0] }}%</span>
-                                        <span class="badge badge-pill badge-secondary pull-right">Skills Matched: {{ $val[1] }}</span>
-                                        <span class="badge badge-pill badge-secondary pull-right">Meets Education:
+                                        <span class="badge badge-pill badge-secondary">Total Match: {{ $val[0] }}%</span>
+                                        <span class="badge badge-pill badge-secondary">Skills: {{ $val[4] }}%</span>
+                                        <span class="badge badge-pill badge-secondary">Skills Matched: {{ $val[1] }}</span>
+                                        <span class="badge badge-pill badge-secondary">Meets Education:
                                             @if($val[2] == 0)
                                                 No
                                             @else
                                                 Yes
                                             @endif
                                         </span>
-                                        <span class="badge badge-pill badge-secondary pull-right">Meets Experience:
+                                        <span class="badge badge-pill badge-secondary">Meets Experience:
                                             @if($val[3] == 0)
                                                 No
                                             @else

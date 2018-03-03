@@ -25,6 +25,7 @@ class CreateJobOpeningsTable extends Migration
             $table->string('type');
             $table->string('education');
             $table->string('experience');
+            $table->integer('status');
             $table->timestamps();
         });
     }

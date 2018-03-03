@@ -18,7 +18,7 @@ class JobOpeningSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         
-        $job_openings = 25;
+        $job_openings = 75;
         
         $skills = Skill::all()->pluck('id')->toArray();
         $job_titles = array('Application Developer','Application Support Analyst','Applications Engineer','Associate Developer','Chief Information Officer (CIO)',
@@ -28,14 +28,19 @@ class JobOpeningSeeder extends Seeder
                             'Network and Computer Systems Administrator','Senior Applications Engineer','Software Engineer','Software Quality Assurance Analyst',
                            'Systems Administrator','Systems Designer','Systems Software Engineer','Technical Support Engineer','Telecommunications Specialist',
                            'Web Administrator','Web Developer','Webmaster','Senior Systems Software Engineer','Senior Programmer Analyst','Software Architect',
-                           'Network Architect','.NET Developer','IT Support Manager','Help Desk Technician','Help Desk Specialist','Front End Developer');
+                           'Network Architect','.NET Developer','IT Support Manager','Help Desk Technician','Help Desk Specialist','Front End Developer', 'Marketing Technologist',
+                           'SEO Consultant', 'Web Analytics Developer', 'Full Stack Web Developer', 'Digital Marketing Manager', 'Growth Hacker', 'Information Architect',
+                           'UX Designer', 'UI Designer', 'Accessibility Specialist', 'Interaction Designer', 'Front-end Designer', 'Front-end Developer', 'Mobile Developer',
+                           'WordPress Developer', 'Framework Specialist', 'Junior Web Engineer', 'Laravel Developer', 'Python Developer', 'Business Systems Analyst', 
+                           'Systems Engineer', 'Database Administrator', 'Data Architect', 'Data Modeler', 'Data Analyst', 'Data Scientist', 'Technical Lead', 
+                           'Security Specialist', 'Game Developer', 'Computer Graphics Animator');
         
         $job_types = array('Full Time','Part Time','As Needed');
         $experience = array('Not necessary','1-3 Years','3-5 Years','5-10 Years','10-20 Years');
         
         for($i = 0; $i < $job_openings; $i++)
         {
-            $startDate = Carbon::create(2018,1,1,0,0,0); //Oldest Job Opening (2018-01-01 00:00:00.0 UTC (+00:00))
+            $startDate = Carbon::create(2017,12,1,0,0,0); //Oldest Job Opening (2018-12-01 00:00:00.0 UTC (+00:00))
             
             $randomCompany = Company::inRandomOrder()->first();
             
@@ -57,6 +62,7 @@ class JobOpeningSeeder extends Seeder
                 'type' => $faker->randomElement($job_types),
                 'education' => $faker->numberBetween(0,4),
                 'experience' => $faker->randomElement($experience),
+                'status' => 0,
                 'created_at' => $date,
                 'updated_at' => $date
             ]);

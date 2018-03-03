@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Application;
 use App\JobOpening;
+use App\User;
 
 class DashboardController extends Controller
 {
@@ -17,15 +18,7 @@ class DashboardController extends Controller
     {
         if(auth()->user()->user_type == 1)
         {
-            //$suggestedJobs = getSuggestedJobs(auth()->user()->id);
             $suggestedJobs = suggestedJobs(auth()->user()->id);
-            
-            /*
-            foreach($suggestedJobs2 as $key => $value)
-            {
-                echo $key.", Percent: ".$value[0].", Matches: ".$value[1].", Education: ".$value[2].", Experience: ".$value[3]."<br>";
-            }
-            dd("Done");*/
             
             return view('seeker.dashboard', compact('suggestedJobs'));
         }
@@ -35,7 +28,10 @@ class DashboardController extends Controller
         }
         else if(auth()->user()->user_type == 3)
         {
-            return view('admin.dashboard');
+            $users = User::orderBy('created_at','desc')->limit(10)->get();
+            $jobs = JobOpening::orderBy('created_at','desc')->limit(10)->get();
+            
+            return view('admin.dashboard', compact('users', 'jobs'));
         }
         
     }

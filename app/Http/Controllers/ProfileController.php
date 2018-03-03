@@ -47,7 +47,7 @@ class ProfileController extends Controller
         else if($user->user_type == 2)
         {
             $info = Company::find($user_id);
-            $jobs = JobOpening::where('company_id',$user_id)->orderBy('created_at','desc')->get();
+            $jobs = JobOpening::where('company_id',$user_id)->where('status',0)->orderBy('created_at','desc')->get();
             return view('company.profile', compact('info', 'jobs'));
         }
     }

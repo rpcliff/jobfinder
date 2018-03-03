@@ -21,7 +21,7 @@ class SeekerSeeder extends Seeder
         
         $startDate = '2015-01-01 00:00:00';
         
-        $num_seekers = 30;
+        $num_seekers = 90;
         
         //Fill array with all PNG files in said directory and shuffle
         $directory = 'public/storage/seeker_images/people_portraits/';

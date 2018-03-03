@@ -78,6 +78,8 @@ Route::get('/job/{job_id}/manage', 'JobController@manage');
 
 Route::get('/job/{job_id}/apply', 'JobController@apply');
 
+Route::get('/job/{job_id}/close', 'JobController@close');
+
 
 /*
  *      AUTH ROUTES

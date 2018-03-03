@@ -55,7 +55,7 @@ class PageController extends Controller
             else if(request()->order == "Salary") $field = 'salary';
             else if(request()->order == "Openings") $field = "openings";
             else $field = 'created_at';
-            $jobs = JobOpening::orderBy($field,request()->sort)->paginate(5)
+            $jobs = JobOpening::where('status',0)->orderBy($field,request()->sort)->paginate(5)
                 ->appends([
                     'order' => request('order'),
                     'sort' => request('sort')
@@ -66,7 +66,7 @@ class PageController extends Controller
             if(request()->search_field == "Title") $field = "title";
             else $field = "title";
             $search = '%'.request()->search.'%';
-            $jobs = JobOpening::where($field,'like',$search)->paginate(5)
+            $jobs = JobOpening::where('status',0)->where($field,'like',$search)->paginate(5)
                 ->appends([
                     'search' => request('search'),
                     'search_field' => request('search_field')

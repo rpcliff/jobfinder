@@ -9,37 +9,44 @@ function suggestedJobs($seeker_id)
     
     foreach($jobs as $job)
     {
-        //Check SKILLS
-        $points = 0;
-        $skills_matches = 0;
-        foreach($job->job_skills as $job_skill)
+        if($job->status == 0) //Accepting Applications
         {
-            $job_points = 6-($job_skill->rating);
-            foreach($seeker->seeker_skills as $seeker_skill)
+            //Check SKILLS
+            $points = 0;
+            $skills_matches = 0;
+            foreach($job->job_skills as $job_skill)
             {
-                if($job_skill->skill_id == $seeker_skill->skill_id)
+                $job_points = 6-($job_skill->rating);
+                foreach($seeker->seeker_skills as $seeker_skill)
                 {
-                    $skills_matches++;
-                    $seeker_points = (11-($seeker_skill->rating))/2;
-                    
-                    if($seeker_points < $job_points)
-                        $points += $seeker_points;
-                    else
-                        $points += $job_points;
+                    if($job_skill->skill_id == $seeker_skill->skill_id)
+                    {
+                        $skills_matches++;
+                        $seeker_points = (11-($seeker_skill->rating))/2;
 
-                    break;
+                        if($seeker_points < $job_points)
+                            $points += $seeker_points;
+                        else
+                            $points += $job_points;
+
+                        break;
+                    }
                 }
             }
+            $percentage = round(($points/15.0)*100,2); //Skills Percentage
+
+            //CHECK EDUCATION
+            $matched_education = checkEducation($job,$seeker);
+
+            //CHECK EXPERIENCE
+            $meets_experience = checkExperience($job,$seeker);
+
+            //Get Total Match Percentage
+            $total_percentage = getTotalMatchPercentage($percentage,$matched_education,$meets_experience);
+            $total_percentage += 10; //curve
+
+            $suggested[$job->id] = array($total_percentage,$skills_matches,$matched_education,$meets_experience,$percentage);
         }
-        $percentage = round(($points/15.0)*100,2); //Skills Percentage
-        
-        //CHECK EDUCATION
-        $matched_education = checkEducation($job,$seeker);
-        
-        //CHECK EXPERIENCE
-        $meets_experience = checkExperience($job,$seeker);
-        
-        $suggested[$job->id] = array($percentage,$skills_matches,$matched_education,$meets_experience);
     }
     
     arsort($suggested);
@@ -97,12 +104,24 @@ function getApplicants($job_id)
         //CHECK EXPERIENCE
         $meets_experience = checkExperience($job,$applicant->seeker);
         
-        $applicants[$applicant->id] = array($percentage,$skills_matches,$matched_education,$meets_experience);
+        //Get Total Match Percentage
+        $total_percentage = getTotalMatchPercentage($percentage,$matched_education,$meets_experience);
+        $total_percentage += 10; //curve
+        
+        $applicants[$applicant->id] = array($total_percentage,$skills_matches,$matched_education,$meets_experience, $percentage);
     }
     
     arsort($applicants);
     
     return $applicants;
+}
+
+function getTotalMatchPercentage($percentage, $matched_education, $meets_experience)
+{
+    $total_percentage = $percentage/2.0;
+    if($matched_education) $total_percentage+=25;
+    if($meets_experience) $total_percentage+=25;
+    return $total_percentage;
 }
 
 function checkEducation($job, $seeker)

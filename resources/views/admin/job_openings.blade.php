@@ -21,6 +21,13 @@
                         </h4>
                     </div>
                     <div class="card-body">
+                        <h3>
+                            @if($job->status == 0)
+                                <span class="badge badge-success">Accepting Applications</span>
+                            @elseif($job->status == 1)
+                                <span class="badge badge-danger">Closed for Applications</span>
+                            @endif
+                        </h3>
                         <h4>
                             <a href="" class="btn btn-sm btn-danger pull-right">Delete</a>
                             <a href="{{ url('/job/'.$job->id) }}" class="btn btn-sm btn-primary pull-right mr-1">View Job</a>

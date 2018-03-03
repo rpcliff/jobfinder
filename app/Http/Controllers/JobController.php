@@ -81,6 +81,7 @@ class JobController extends Controller
         if(isset($request->salary)) $job->salary = $request->salary;
         else $job->salary = 0;
         $job->type = $request->type;
+        $job->status = 0;
         $job->education = $request->education;
         $job->experience = $request->experience;
         
@@ -158,5 +159,31 @@ class JobController extends Controller
         $application->save();
         
         return redirect()->back()->with('success', 'You have applied for this job!');
+    }
+    
+    /*
+     * AUTH: COMPANY
+     * CLOSE JOB OPENING
+     */
+    public function close($job_id)
+    {
+        //Is a company
+        if(auth()->user()->user_type != 2)
+            return back();
+        
+        $job = JobOpening::find($job_id);
+        
+        //Does this job exist
+        if(count($job)==0)
+            return back();
+        
+        //Does this job belong to the company that created it
+        if($job->company_id != auth()->user()->id)
+            return back();
+        
+        $job->status = 1;
+        $job->save();
+        
+        return redirect()->back()->with('success', 'Job Opening Closed! This Job will be remain accessible for 1 month.');
     }
 }

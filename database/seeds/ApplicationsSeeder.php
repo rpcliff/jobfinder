@@ -16,7 +16,7 @@ class ApplicationsSeeder extends Seeder
     {
         $faker = Faker\Factory::create();
         
-        $num_applications = 30;
+        $num_applications = 90;
         
         $seekerIDs = Seeker::all()->pluck('user_id')->toArray();
         $jobIDs = JobOpening::all()->pluck('id')->toArray();
