@@ -90,4 +90,21 @@ class AdminController extends Controller
         
         return view('admin.applications', compact('applications'));
     }
+    
+    public function algorithms()
+    {
+        if(auth()->user()->user_type != 3)
+            return back();
+        
+        if(request()->has('seeker'))
+        {
+            $algorithm = suggestedJobs(request()->seeker);
+            $suggestedJobs = $algorithm[0];
+            $time = $algorithm[1];
+        }
+        
+        $seekers = Seeker::all();
+        
+        return view('admin.algorithms', compact('seekers', 'suggestedJobs', 'time'));
+    }
 }

@@ -107,3 +107,5 @@ Route::get('/admin/companies', 'AdminController@companies');
 Route::get('/admin/job_openings', 'AdminController@job_openings');
 
 Route::get('/admin/applications', 'AdminController@applications');
+
+Route::get('/admin/algorithms', 'AdminController@algorithms');

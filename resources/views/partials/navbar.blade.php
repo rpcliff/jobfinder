@@ -59,6 +59,7 @@
                                 <a class="dropdown-item" href="{{ url('/admin/skills') }}">Skills</a>
                                 <a class="dropdown-item" href="{{ url('/admin/job_openings') }}">Job Openings</a>
                                 <a class="dropdown-item" href="{{ url('/admin/applications') }}">Applications</a>
+                                <a class="dropdown-item" href="{{ url('/admin/algorithms') }}">Algorithms</a>
                             @else
                                 @if(auth()->user()->user_type==1) <!-- SEEKER -->
                                     <a class="dropdown-item" href="{{ url('/applications') }}">Your Applications</a>

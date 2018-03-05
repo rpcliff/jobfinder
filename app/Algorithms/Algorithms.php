@@ -2,6 +2,8 @@
 
 function suggestedJobs($seeker_id)
 {
+    $time_start = microtime(true);
+    
     $jobs = \App\JobOpening::all();
     $seeker = \App\Seeker::find($seeker_id);
     
@@ -44,14 +46,19 @@ function suggestedJobs($seeker_id)
             //Get Total Match Percentage
             $total_percentage = getTotalMatchPercentage($percentage,$matched_education,$meets_experience);
             $total_percentage += 10; //curve
-
+            if($total_percentage > 100) $total_percentage = 100;
+            
             $suggested[$job->id] = array($total_percentage,$skills_matches,$matched_education,$meets_experience,$percentage);
         }
     }
-    
+
     arsort($suggested);
     
-    return $suggested;
+    $time_end = microtime(true);
+    $time = $time_end - $time_start;
+    $time = round($time,4);
+
+    return array($suggested,$time);
 }
 
 function getSeekerTotalExperience($seeker) //Return in DAYS

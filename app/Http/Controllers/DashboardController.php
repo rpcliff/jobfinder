@@ -18,7 +18,9 @@ class DashboardController extends Controller
     {
         if(auth()->user()->user_type == 1)
         {
-            $suggestedJobs = suggestedJobs(auth()->user()->id);
+            $algorithm = suggestedJobs(auth()->user()->id);
+            $suggestedJobs = $algorithm[0];
+            $time = $algorithm[1];
             
             return view('seeker.dashboard', compact('suggestedJobs'));
         }
