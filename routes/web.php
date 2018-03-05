@@ -50,9 +50,9 @@ Route::get('/profile/{user_id}/edit_education', 'ProfileController@edit_educatio
 
 Route::post('/profile/{user_id}/add_education', 'ProfileController@add_education');
 
-Route::delete('/profile/{user_id}/education/{education_id}/delete', 'ProfileController@delete_education');
-
 Route::get('/profile/{user_id}/account', 'ProfileController@account');
+
+Route::get('/profile/{user_id}/edit_account', 'ProfileController@edit_account');
 
 
 /*
@@ -77,8 +77,6 @@ Route::post('/job/create', 'JobController@create');
 Route::get('/job/{job_id}/manage', 'JobController@manage');
 
 Route::get('/job/{job_id}/apply', 'JobController@apply');
-
-Route::get('/job/{job_id}/close', 'JobController@close');
 
 
 /*
@@ -107,5 +105,3 @@ Route::get('/admin/companies', 'AdminController@companies');
 Route::get('/admin/job_openings', 'AdminController@job_openings');
 
 Route::get('/admin/applications', 'AdminController@applications');
-
-Route::get('/admin/algorithms', 'AdminController@algorithms');

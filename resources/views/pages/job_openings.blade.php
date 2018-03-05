@@ -79,14 +79,7 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <p><strong>Job Type: </strong>{{ $job->type }}</p>
-                                        
-                                        <p><strong>Education: </strong>
-                                            @if($job->education == 0)
-                                                Not Necessary
-                                            @else
-                                                {{ $job->education_level->education }}
-                                            @endif
-                                        </p>
+                                        <p><strong>Education: </strong>{{ $job->education }}</p>
                                     </div>
                                     <div class="col-md-6">
                                         @if(empty($job->salary))

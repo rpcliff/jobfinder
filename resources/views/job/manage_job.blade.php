@@ -13,12 +13,7 @@
                 <img style='width:250px;height:250px;' src='/storage/company_images/noimage.png'>
             @endif
             
-            @if($job->status == 0)
-                <h3 class="text-center"><span class="badge badge-success">Accepting Applications</span></h3>
-                <a href="{{ url('/job/'.$job->id.'/close') }}" class="btn btn-danger btn-block" style="margin-top:10px;">Close Job Opening</a>
-            @elseif($job->status == 1)
-                <h3 class="text-center"><span class="badge badge-danger">Closed for Applications</span></h3>
-            @endif
+            <!--<a href="{{ url('/profile/'.$job->company_id) }}" class="btn btn-primary btn-block" style="margin-top:10px;">View Company</a>-->
         </div>
         <div class="col-md-9">
             
@@ -28,13 +23,7 @@
             </p>
             <p style="font-size:1.5em;">
                 <span class="badge badge-secondary">{{ $job->type }}</span>
-                <span class="badge badge-secondary">Education: 
-                    @if($job->education == 0)
-                        Not Necessary
-                    @else
-                        {{ $job->education_level->education }}
-                    @endif
-                </span>
+                <span class="badge badge-secondary">Education: {{ $job->education }}</span>
                 <span class="badge badge-secondary">Experience: {{ $job->experience }}</span>
             </p>
             <p>
@@ -112,47 +101,11 @@
                                 @endif
                             </div>
                             <div class="col-md-10">
-                                
-                                <span class="badge badge-pill badge-primary pull-right">Match Percent: {{ $val[0] }}%</span>
-                                <span style="font-size:1.2em;" class="badge badge-pill badge-success pull-right mr-2"> Match: 
-                                    @if($val[0]>=96) A+
-                                    @elseif($val[0]>=93) A
-                                    @elseif($val[0]>=90) A-
-                                    @elseif($val[0]>=86) B+
-                                    @elseif($val[0]>=83) B
-                                    @elseif($val[0]>=80) B-
-                                    @elseif($val[0]>=76) C+
-                                    @elseif($val[0]>=73) C
-                                    @elseif($val[0]>=70) C-
-                                    @elseif($val[0]>=66) D+
-                                    @elseif($val[0]>=63) D
-                                    @elseif($val[0]>=60) D-
-                                    @else F
-                                    @endif
-                                </span>
-                                
+                                <span class="badge badge-pill badge-primary pull-right">Skills Match Percent: {{ $val[0] }}%</span>
+                                <span class="badge badge-pill badge-primary pull-right mr-1">Matched {{ $val[1] }} out of 5 Skills</span>
                                 <p><strong>Phone: </strong>{{ $application->seeker->phone }}</p>
                                 
-                                <span class="badge badge-pill badge-primary pull-right">Skills Match Percent: {{ $val[4] }}%</span>
-                                <span class="badge badge-pill badge-primary pull-right mr-1">Matched {{ $val[1] }} out of 5 Skills</span>
-                                
                                 <p><strong>Location: </strong>{{ $application->seeker->city }}, {{ $application->seeker->state }} {{ $application->seeker->zipcode }}</p>
-                                
-                                <span class="badge badge-pill badge-primary pull-right mr-1">Meets Education: 
-                                    @if($val[2] == 0)
-                                        No
-                                    @else
-                                        Yes
-                                    @endif
-                                </span>
-                                <span class="badge badge-pill badge-primary pull-right mr-1">Meets Experience: 
-                                    @if($val[3] == 0)
-                                        No
-                                    @else
-                                        Yes
-                                    @endif
-                                </span>
-                                
                                 <p><strong>Age: </strong>{{ $application->seeker->age }}</p>
                                 
                                 @foreach($application->seeker->seeker_skills as $skill)
@@ -162,6 +115,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
+                        <a href="" class="btn btn-sm btn-danger pull-right ml-1">Remove Application</a>
                         <a href="{{ url('/profile/'.$application->seeker->user_id) }}" class="btn btn-sm btn-primary pull-right">View Profile</a>
                     </div>
                 </div>

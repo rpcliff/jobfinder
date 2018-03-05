@@ -21,25 +21,12 @@
                         </h4>
                     </div>
                     <div class="card-body">
-                        <h3>
-                            @if($job->status == 0)
-                                <span class="badge badge-success">Accepting Applications</span>
-                            @elseif($job->status == 1)
-                                <span class="badge badge-danger">Closed for Applications</span>
-                            @endif
-                        </h3>
                         <h4>
                             <a href="" class="btn btn-sm btn-danger pull-right">Delete</a>
                             <a href="{{ url('/job/'.$job->id) }}" class="btn btn-sm btn-primary pull-right mr-1">View Job</a>
                             <span class="badge badge-secondary">{{ $job->type }}</span>
                             <span class="badge badge-secondary">{{ $job->openings }} Openings</span>
-                            <span class="badge badge-secondary">Education: 
-                                @if($job->education == 0)
-                                    Not Necessary
-                                @else
-                                    {{ $job->education_level->education }}
-                                @endif
-                            </span>
+                            <span class="badge badge-secondary">Education: {{ $job->education }}</span>
                             <span class="badge badge-secondary">Experience: {{ $job->experience }}</span>
                             <span class="badge badge-secondary">Salary: 
                                 @if(empty($job->salary))

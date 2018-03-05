@@ -7,9 +7,6 @@
     <div class="row">
         <div class="col-md-12">
         
-            @if(count($applications)==0)
-                <div class="alert alert-danger text-center">You have not submitted any applications.</div>
-            @endif
             @foreach($applications as $application)
             
                 <div class="card">

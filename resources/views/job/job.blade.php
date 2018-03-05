@@ -34,13 +34,7 @@
             </p>
             <p style="font-size:1.5em;">
                 <span class="badge badge-secondary">{{ $job->type }}</span>
-                <span class="badge badge-secondary">Education: 
-                    @if($job->education == 0)
-                        Not Necessary
-                    @else
-                        {{ $job->education_level->education }}
-                    @endif
-                </span>
+                <span class="badge badge-secondary">Education: {{ $job->education }}</span>
                 <span class="badge badge-secondary">Experience: {{ $job->experience }}</span>
             </p>
             <p>
